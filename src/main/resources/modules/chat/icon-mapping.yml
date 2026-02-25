@@ -11,7 +11,7 @@
 #   3. If neither is configured                   → everyone can use the icon.
 #
 # Tab completion format:
-#   :icon_name: ●   (when tab field is blank)
+#   :icon_name:  (when tab field is blank)
 #   :icon_name: <tab_char>  (when tab field has a value)
 #
 ########################################################################################################################

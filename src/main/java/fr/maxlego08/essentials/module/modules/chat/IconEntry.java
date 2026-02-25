@@ -9,7 +9,7 @@ public record IconEntry(
 ) {
 
     public String completionValue() {
-        String display = (tab == null || tab.isBlank()) ? "●" : tab;
+        String display = (tab == null || tab.isBlank()) ? "" : tab;
         return ":" + name + ": " + display;
     }
 }

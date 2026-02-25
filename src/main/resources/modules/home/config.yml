@@ -16,6 +16,7 @@ enable: true
 # Allow players to have multiple homes.
 # You must set the permission the player must have and the home number for that permission.
 # If the player has multiple permissions then the maximum number of home will be used.
+# Set amount to -1 for unlimited homes.
 permissions:
   - permission: "essentials.home.default"
     amount: 3
@@ -23,6 +24,8 @@ permissions:
     amount: 5
   - permission: "essentials.home.staff"
     amount: 10
+  - permission: "essentials.home.unlimited"
+    amount: -1
 
 # Change the display for/home
 #

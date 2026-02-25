@@ -77,7 +77,16 @@ public class HomeModule extends ZModule implements HomeManager {
 
     @Override
     public int getMaxHome(Permissible permissible) {
-        var stream = this.permissions.stream().filter(homePermission -> permissible.hasPermission(homePermission.permission())).mapToInt(HomePermission::amount);
+        List<HomePermission> matched = this.permissions.stream()
+                .filter(homePermission -> permissible.hasPermission(homePermission.permission()))
+                .toList();
+
+        // If any matched permission has amount -1, the player has unlimited homes
+        if (matched.stream().anyMatch(hp -> hp.amount() == -1)) {
+            return Integer.MAX_VALUE;
+        }
+
+        var stream = matched.stream().mapToInt(HomePermission::amount);
         return this.homeUsageType == HomeUsageType.STACK ? stream.sum() : stream.max().orElse(0);
     }
 
@@ -88,15 +97,16 @@ public class HomeModule extends ZModule implements HomeManager {
 
             int homeAmount = user.countHomes();
             int maxHome = getMaxHome(player);
+            String maxDisplay = maxHome == Integer.MAX_VALUE ? "Unlimited" : String.valueOf(maxHome);
             List<Home> homes = user.getHomes();
 
             if (this.homeDisplay == HomeDisplay.IN_LINE) {
                 List<String> homesAsString = homes.stream().map(home -> getMessage(Message.COMMAND_HOME_INFORMATION_IN_LINE_INFO, formatHomeInformation(home, homeAmount, maxHome))).toList();
-                message(player, Message.COMMAND_HOME_INFORMATION_IN_LINE, "%homes%", Strings.join(homesAsString, ','), "%count%", homeAmount, "%max%", maxHome);
+                message(player, Message.COMMAND_HOME_INFORMATION_IN_LINE, "%homes%", Strings.join(homesAsString, ','), "%count%", homeAmount, "%max%", maxDisplay);
             } else {
-                message(player, Message.COMMAND_HOME_INFORMATION_MULTI_LINE_HEADER, "%count%", homeAmount, "%max%", maxHome);
+                message(player, Message.COMMAND_HOME_INFORMATION_MULTI_LINE_HEADER, "%count%", homeAmount, "%max%", maxDisplay);
                 homes.forEach(home -> message(player, Message.COMMAND_HOME_INFORMATION_MULTI_LINE_CONTENT, formatHomeInformation(home, homeAmount, maxHome)));
-                message(player, Message.COMMAND_HOME_INFORMATION_MULTI_LINE_FOOTER, "%count%", homeAmount, "%max%", maxHome);
+                message(player, Message.COMMAND_HOME_INFORMATION_MULTI_LINE_FOOTER, "%count%", homeAmount, "%max%", maxDisplay);
             }
         } else this.openInventory(player);
     }
@@ -124,7 +134,7 @@ public class HomeModule extends ZModule implements HomeManager {
         Location location = home.getLocation();
         World world = location.getWorld();
         placeholders.register("count", String.valueOf(homeAmount));
-        placeholders.register("max", String.valueOf(maxHome));
+        placeholders.register("max", maxHome == Integer.MAX_VALUE ? "Unlimited" : String.valueOf(maxHome));
         placeholders.register("name", home.getName());
         placeholders.register("world", name(world.getName()));
         placeholders.register("environment", name(world.getEnvironment().name()));

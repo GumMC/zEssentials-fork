@@ -86,6 +86,16 @@ public class CommandPay extends VCommand {
             return CommandResultType.DEFAULT;
         }
 
+        // Check if fee would consume entire payment
+        if (economyManager.isPayFeeEnabled() && economyManager.getPayFeePercentage() > 0) {
+            BigDecimal feeAmount = amount.multiply(BigDecimal.valueOf(economyManager.getPayFeePercentage() / 100.0));
+            BigDecimal received = amount.subtract(feeAmount);
+            if (received.compareTo(BigDecimal.ZERO) <= 0) {
+                message(sender, Message.COMMAND_PAY_FEE_TOO_HIGH);
+                return CommandResultType.DEFAULT;
+            }
+        }
+
         BigDecimal finalAmount = amount;
         this.fetchUniqueId(userName, uniqueId -> {
 

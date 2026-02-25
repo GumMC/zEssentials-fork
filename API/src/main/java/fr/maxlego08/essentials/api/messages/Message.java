@@ -480,6 +480,9 @@ public enum Message {
     COMMAND_PAY_SELF("<error>You cannot send money to yourself."),
     COMMAND_PAY_NOT_ENOUGH("<error>You don't have enough money."),
     COMMAND_PAY_DISABLED("<error>You cannot send money to this player."),
+    COMMAND_PAY_SENDER_FEE("#5CFF7A&l(!)&r #5CFF7AYou sent #B8FFD0%amount% #5CFF7Ato #B8FFD0%player%#5CFF7A. #B8FFD0(-%fee%% deduction)"),
+    COMMAND_PAY_RECEIVER_FEE("#5CFF7A&l(!)&r #5CFF7AYou received #B8FFD0%received% #5CFF7Afrom #B8FFD0%player%#5CFF7A. #B8FFD0(-%fee%% deduction)"),
+    COMMAND_PAY_FEE_TOO_HIGH("#FF5C5C&l(!)&r #FF5C5CThe fee would consume the entire payment. #B0B0B0Please send a larger amount.#FF5C5C"),
 
     JOIN_MESSAGE("#99E0FF%player% &7joined the game"),
     QUIT_MESSAGE("#99E0FF%player% &7left the game"),

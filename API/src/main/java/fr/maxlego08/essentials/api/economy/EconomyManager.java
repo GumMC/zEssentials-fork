@@ -188,6 +188,20 @@ public interface EconomyManager extends Module {
     void pay(UUID fromUuid, String fromName, UUID toUuid, String toName, Economy economy, BigDecimal amount);
 
     /**
+     * Returns whether pay fee is enabled.
+     *
+     * @return true if pay fee is enabled
+     */
+    boolean isPayFeeEnabled();
+
+    /**
+     * Returns the pay fee percentage (0-100).
+     *
+     * @return the fee percentage
+     */
+    double getPayFeePercentage();
+
+    /**
      * Gets the price format used for formatting currency amounts.
      *
      * @return The price format used for formatting currency amounts.

@@ -76,6 +76,8 @@ public class EconomyModule extends ZModule implements EconomyManager {
     private String commandSetReason;
     private String paytogglePlaceholderEnabled;
     private String paytogglePlaceholderDisabled;
+    private boolean enablePayFee;
+    private double payFeePercentage;
     private int baltopMessageAmount;
     private BaltopDisplay baltopDisplay;
     private WrappedTask baltopTask;
@@ -358,11 +360,22 @@ public class EconomyModule extends ZModule implements EconomyManager {
     @Override
     public void pay(UUID fromUuid, String fromName, UUID toUuid, String toName, Economy economy, BigDecimal amount) {
 
-        perform(fromUuid, user -> user.withdraw(toUuid, economy, amount, this.payWithdrawReason.replace("%player%", toName)));
-        perform(toUuid, user -> user.deposit(fromUuid, economy, amount, this.payDepositReason.replace("%player%", fromName)));
+        if (this.enablePayFee && this.payFeePercentage > 0) {
+            BigDecimal feeAmount = amount.multiply(BigDecimal.valueOf(this.payFeePercentage / 100.0));
+            BigDecimal received = amount.subtract(feeAmount);
 
-        message(fromUuid, Message.COMMAND_PAY_SENDER, "%amount%", this.format(economy, amount), "%player%", toName);
-        message(toUuid, Message.COMMAND_PAY_RECEIVER, "%amount%", this.format(economy, amount), "%player%", fromName);
+            perform(fromUuid, user -> user.withdraw(toUuid, economy, amount, this.payWithdrawReason.replace("%player%", toName)));
+            perform(toUuid, user -> user.deposit(fromUuid, economy, received, this.payDepositReason.replace("%player%", fromName)));
+
+            message(fromUuid, Message.COMMAND_PAY_SENDER_FEE, "%amount%", this.format(economy, amount), "%player%", toName, "%fee%", String.valueOf((int) this.payFeePercentage));
+            message(toUuid, Message.COMMAND_PAY_RECEIVER_FEE, "%received%", this.format(economy, received), "%player%", fromName, "%fee%", String.valueOf((int) this.payFeePercentage));
+        } else {
+            perform(fromUuid, user -> user.withdraw(toUuid, economy, amount, this.payWithdrawReason.replace("%player%", toName)));
+            perform(toUuid, user -> user.deposit(fromUuid, economy, amount, this.payDepositReason.replace("%player%", fromName)));
+
+            message(fromUuid, Message.COMMAND_PAY_SENDER, "%amount%", this.format(economy, amount), "%player%", toName);
+            message(toUuid, Message.COMMAND_PAY_RECEIVER, "%amount%", this.format(economy, amount), "%player%", fromName);
+        }
     }
 
     @Override
@@ -521,5 +534,15 @@ public class EconomyModule extends ZModule implements EconomyManager {
     @Override
     public String getPayTogglePlaceholderDisabled() {
         return paytogglePlaceholderDisabled;
+    }
+
+    @Override
+    public boolean isPayFeeEnabled() {
+        return enablePayFee;
+    }
+
+    @Override
+    public double getPayFeePercentage() {
+        return payFeePercentage;
     }
 }

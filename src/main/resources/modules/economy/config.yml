@@ -169,6 +169,12 @@ default-economies:
 pay-withdraw-reason: "Payment sent to %player%"
 pay-deposit-reason: "Payment received from %player%"
 
+# Pay fee configuration
+# Enable or disable fee deduction when using /pay
+enable-pay-fee: false
+# Fee percentage deducted from payment (e.g. 5 = 5%). Receiver gets (amount - fee%).
+pay-fee-percentage: 0
+
 # Default reasons for admin commands
 command-give-reason: "Give by %sender%"
 command-give-all-reason: "Give by %sender% (Give-all)"

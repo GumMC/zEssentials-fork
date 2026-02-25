@@ -315,7 +315,9 @@ public enum Permission {
     ESSENTIALS_VOTEFLY_REMOVE,
     ESSENTIALS_VOTEFLY_SET,
     ESSENTIALS_VOTEFLY_GET,
-    ESSENTIALS_VOTEFLY_BYPASS_WORLD("Allows to activate vote fly even in the world where fly is disabled");
+    ESSENTIALS_VOTEFLY_BYPASS_WORLD("Allows to activate vote fly even in the world where fly is disabled"),
+    ESSENTIALS_CHAT_INV("Allows you to display your full inventory in chat using [inv]"),
+    ESSENTIALS_SHOW_INV("Allows you to view another player's inventory snapshot via /showinv");
 
     private final String description;
     private final String[] args;

@@ -10,6 +10,7 @@ import fr.maxlego08.essentials.commands.commands.chat.CommandChatEnable;
 import fr.maxlego08.essentials.commands.commands.chat.CommandChatHistory;
 import fr.maxlego08.essentials.commands.commands.chat.CommandPub;
 import fr.maxlego08.essentials.commands.commands.chat.CommandShowItem;
+import fr.maxlego08.essentials.commands.commands.chat.CommandShowInv;
 import fr.maxlego08.essentials.commands.commands.clearinventory.ClearInventoryCommand;
 import fr.maxlego08.essentials.commands.commands.cooldown.CommandCooldown;
 import fr.maxlego08.essentials.commands.commands.discord.CommandLink;
@@ -234,6 +235,7 @@ public class CommandLoader {
         register("chatdisable", CommandChatDisable.class, "cd");
         register("broadcast", CommandChatBroadcast.class, "bc");
         register("showitem", CommandShowItem.class);
+        register("showinv", CommandShowInv.class);
 
         register("message", CommandMessage.class, "msg", "tell", "whisper", "m", "w");
         register("reply", CommandReply.class, "r");

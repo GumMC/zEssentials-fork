@@ -5,6 +5,7 @@ import fr.maxlego08.essentials.api.commands.CommandResultType;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.dto.EconomyDTO;
 import fr.maxlego08.essentials.api.economy.EconomyManager;
+import fr.maxlego08.essentials.api.economy.PriceFormat;
 import fr.maxlego08.essentials.api.messages.Message;
 import fr.maxlego08.essentials.module.modules.economy.EconomyModule;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
@@ -37,6 +38,8 @@ public class CommandMoney extends VCommand {
                 arguments.add(economy.getDisplayName());
                 arguments.add("%economy-" + economy.getName() + "%");
                 arguments.add(economyManager.format(economy, amount));
+                arguments.add("%economy-" + economy.getName() + "-raw%");
+                arguments.add(economy.getSymbol() + economyManager.format(PriceFormat.PRICE_WITH_DECIMAL_FORMAT, amount));
             });
 
             message(sender, Message.COMMAND_MONEY, arguments.toArray());
@@ -58,6 +61,8 @@ public class CommandMoney extends VCommand {
                 arguments.add(economy.getDisplayName());
                 arguments.add("%economy-" + economy.getName() + "%");
                 arguments.add(economyManager.format(economy, amount));
+                arguments.add("%economy-" + economy.getName() + "-raw%");
+                arguments.add(economyManager.format(PriceFormat.PRICE_WITH_DECIMAL_FORMAT, amount));
             });
 
             message(sender, Message.COMMAND_MONEY_OTHER, arguments.toArray());

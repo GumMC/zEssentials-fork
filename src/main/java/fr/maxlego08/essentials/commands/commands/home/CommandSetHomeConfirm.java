@@ -38,13 +38,14 @@ public class CommandSetHomeConfirm extends VCommand {
         int maxHome = plugin.getMaxHome(player);
         int current = user.countHomes();
 
-        if (current >= maxHome && !this.user.isHomeName(homeName)) {
+        if (maxHome != Integer.MAX_VALUE && current >= maxHome && !this.user.isHomeName(homeName)) {
             message(sender, Message.COMMAND_SET_HOME_MAX, "%name%", homeName, "%max%", maxHome, "%current%", current);
             return CommandResultType.DEFAULT;
         }
 
+        String maxDisplay = maxHome == Integer.MAX_VALUE ? "∞" : String.valueOf(maxHome);
         user.setHome(homeName, player.getLocation(), true);
-        message(sender, Message.COMMAND_SET_HOME_CREATE, "%name%", homeName, "%max%", maxHome, "%current%", user.countHomes());
+        message(sender, Message.COMMAND_SET_HOME_CREATE, "%name%", homeName, "%max%", maxDisplay, "%current%", user.countHomes());
         return CommandResultType.SUCCESS;
     }
 }

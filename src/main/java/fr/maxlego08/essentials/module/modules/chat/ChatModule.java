@@ -9,6 +9,7 @@ import fr.maxlego08.essentials.api.chat.ChatFormat;
 import fr.maxlego08.essentials.api.chat.ChatPlaceholder;
 import fr.maxlego08.essentials.api.chat.ChatResult;
 import fr.maxlego08.essentials.api.chat.CustomRules;
+import fr.maxlego08.essentials.api.chat.ShowInventory;
 import fr.maxlego08.essentials.api.chat.ShowItem;
 import fr.maxlego08.essentials.api.commands.Permission;
 import fr.maxlego08.essentials.api.dto.ChatMessageDTO;
@@ -49,6 +50,7 @@ import java.util.stream.LongStream;
 public class ChatModule extends ZModule {
 
     private final List<ShowItem> showItems = new ArrayList<>();
+    private final List<ShowInventory> showInventories = new ArrayList<>();
     private final List<ChatDisplay> chatDisplays = new ArrayList<>();
     private final ExpiringCache<UUID, List<ChatMessageDTO>> chatMessagesCache = new ExpiringCache<>(1000 * 60);
     private final Pattern urlPattern = Pattern.compile("(https?://[\\w-\\.]+(\\:[0-9]+)?(/[\\w- ./?%&=]*)?)", Pattern.CASE_INSENSITIVE);
@@ -141,6 +143,15 @@ public class ChatModule extends ZModule {
 
         if (configuration.getBoolean("command-placeholder.enable")) {
             this.chatDisplays.add(new CommandDisplay(configuration.getString("command-placeholder.result"), configuration.getString("command-placeholder.permission")));
+        }
+
+        if (configuration.getBoolean("inv-placeholder.enable")) {
+            this.chatDisplays.add(new InvDisplay(
+                    this.plugin,
+                    configuration.getString("inv-placeholder.regex"),
+                    configuration.getString("inv-placeholder.result"),
+                    configuration.getString("inv-placeholder.permission")
+            ));
         }
 
         this.customRules.removeIf(CustomRules::isNotValid);
@@ -405,9 +416,46 @@ public class ChatModule extends ZModule {
         new ShowItemInventory(optional.get(), player);
     }
 
+    /**
+     * Stores a full inventory snapshot and returns the retrieval code.
+     *
+     * @param player   The player whose inventory is being shared.
+     * @param contents Slots 0-35 (hotbar + main inventory).
+     * @param armor    Armor slots [boots, leggings, chestplate, helmet].
+     * @param offHand  Off-hand item (may be null).
+     * @return A random 16-character code that can be used to open the snapshot.
+     */
+    public String createHoverInventory(Player player, ItemStack[] contents, ItemStack[] armor, ItemStack offHand) {
+        this.showInventories.removeIf(ShowInventory::isExpired);
+
+        String code = generateRandomString(16);
+        ShowInventory snapshot = new ShowInventory(player, contents, armor, offHand, System.currentTimeMillis() + (1000 * 300), code);
+        this.showInventories.add(snapshot);
+
+        return code;
+    }
+
+    public void openShowInventory(Player player, String code) {
+        this.showInventories.removeIf(ShowInventory::isExpired);
+        Optional<ShowInventory> optional = this.showInventories.stream().filter(s -> s.code().equals(code)).findFirst();
+        if (optional.isEmpty()) {
+            message(player, Message.CODE_NOT_FOUND);
+            return;
+        }
+
+        YamlConfiguration configuration = getConfiguration();
+        String title = configuration.getString("inv-placeholder.inventory-title", "&8%player%'s Inventory")
+                .replace("%player%", optional.get().player().getName());
+
+        new ShowInventoryInventory(optional.get(), title, player);
+    }
+
     @EventHandler
     public void onClick(InventoryClickEvent event) {
         if (event.getInventory().getHolder() instanceof ShowItemInventory) {
+            event.setCancelled(true);
+        }
+        if (event.getInventory().getHolder() instanceof ShowInventoryInventory) {
             event.setCancelled(true);
         }
     }
@@ -415,6 +463,9 @@ public class ChatModule extends ZModule {
     @EventHandler
     public void onClick(InventoryDragEvent event) {
         if (event.getInventory().getHolder() instanceof ShowItemInventory) {
+            event.setCancelled(true);
+        }
+        if (event.getInventory().getHolder() instanceof ShowInventoryInventory) {
             event.setCancelled(true);
         }
     }

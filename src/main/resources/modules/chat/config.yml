@@ -210,6 +210,14 @@ command-placeholder: # ./<command>. placeholder
   # You must be on a paper basis, using spigot will not work
   enable-replace-all-message: false
 
+
+inv-placeholder:
+  enable: true
+  regex: "(?i)\\[inv\\]" # [inv] placeholder
+  result: "<gold>[%player%'s Inventory]</gold>"
+  permission: "zessentials.chat.placeholder.inv"
+  inventory-title: "&8%player%'s Inventory"
+
 # Allows to define custom rules with regex
 custom-rules:
   - regex: "(can|may|would you like if) i (have|be|become|get|has) (op|admin|mod|builder)"

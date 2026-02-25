@@ -390,6 +390,7 @@ public enum Message {
     DESCRIPTION_VAULT_GET_SLOT("Get the content of a vault slot"),
     DESCRIPTION_VAULT_DELETE_SLOT("Force delete a vault slot"),
     DESCRIPTION_SHOW_ITEM("Show player's item"),
+    DESCRIPTION_SHOW_INV("Show player's full inventory"),
     DESCRIPTION_EXPERIENCE("Manage player experience"),
     DESCRIPTION_DISCORD_LINK("Link your discord account"),
     DESCRIPTION_DISCORD_UNLINK("Unlink your discord account"),
@@ -664,6 +665,7 @@ public enum Message {
     CHAT_FLOOD("<error>You can’t talk like that."),
     CHAT_LINK("<error>You cannot send a link in the chat."),
     CHAT_ITEM_FORBIDDEN_CHARACTERS("<error>You cannot display this item because its name contains forbidden characters."),
+    CHAT_INV_EMPTY("<error>Your inventory is empty, there is nothing to display."),
     CHAT_DISABLE("<error>The chat is currently unavailable."),
 
     CHAT_DEFAULT_FORMAT("<white>%displayName% <#656665>• &7%message%"),

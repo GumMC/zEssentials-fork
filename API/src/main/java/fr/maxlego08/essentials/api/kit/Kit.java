@@ -133,7 +133,5 @@ public interface Kit {
     boolean hasCategory();
 
     boolean hasSubCategory();
-
-    String getPreviewTitle();
 }
 

@@ -976,6 +976,25 @@ public enum Message {
     DEATH_MESSAGE_PLAYER("#99E0FF%player% &7was slain by #34cfe0%killer%&7."),
     DEATH_MESSAGE_MOB("#99E0FF%player% &7was killed by &c%mob%&7."),
     DEATH_MESSAGE_MYTHIC_MOB("#99E0FF%player% &7was slain by <gradient:#ff6600:#ff0000>%mob%</gradient>&7!"),
+
+    // Vote Fly
+    COMMAND_VOTEFLY_ACTIVE(MessageType.WITHOUT_PREFIX, "#5CFF7A&l(!)&r #5CFF7AYour Vote fly is active. Time remaining: #B8FFD0%time%#5CFF7A"),
+    COMMAND_VOTEFLY_INACTIVE(MessageType.WITHOUT_PREFIX, "#FF5C5C&l(!)&r #FF5C5CYour Vote fly is inactive. Time remaining: #FFBDBD%time%#FF5C5C"),
+    COMMAND_VOTEFLY_ENABLE("#5CFF7A&l(!)&r #5CFF7AVote fly has been #B8FFD0enabled#5CFF7A."),
+    COMMAND_VOTEFLY_DISABLE("#FF5C5C&l(!)&r #FF5C5CVote fly has been #FFBDBDdisabled#FF5C5C."),
+    COMMAND_VOTEFLY_NO_TIME("#FF5C5C&l(!)&r #FF5C5CYou have no vote fly time available."),
+    COMMAND_VOTEFLY_ADD("#5CFF7A&l(!)&r #5CFF7AYou just added #B8FFD0%time% #5CFF7Aof vote fly time to #B8FFD0%player%#5CFF7A."),
+    COMMAND_VOTEFLY_REMOVE("#5CFF7A&l(!)&r #5CFF7AYou just removed #B8FFD0%time% #5CFF7Aof vote fly time from #B8FFD0%player%#5CFF7A."),
+    COMMAND_VOTEFLY_SET("#5CFF7A&l(!)&r #5CFF7AYou just set #B8FFD0%time% #5CFF7Aof vote fly time to #B8FFD0%player%#5CFF7A."),
+    COMMAND_VOTEFLY_GET("#5CFF7A&l(!)&r #5CFF7A#B8FFD0%player% #5CFF7Ahas #B8FFD0%time% #5CFF7Aof vote fly time remaining."),
+    COMMAND_VOTEFLY_CHECK("#5CFF7AYour vote fly time: #B8FFD0%time%#5CFF7A"),
+    COMMAND_VOTEFLY_END("#FF5C5C&l(!)&r #FF5C5CYour vote fly time has expired, you can no longer vote fly."),
+    COMMAND_VOTEFLY_DISABLED_BY_FLY("#FF5C5C&l(!)&r #FF5C5CVote fly has been disabled because your normal fly is active."),
+    DESCRIPTION_VOTEFLY("Toggle vote fly"),
+    DESCRIPTION_VOTEFLY_ADD("Add vote fly time to a player"),
+    DESCRIPTION_VOTEFLY_REMOVE("Remove vote fly time from a player"),
+    DESCRIPTION_VOTEFLY_SET("Set vote fly time for a player"),
+    DESCRIPTION_VOTEFLY_GET("Display player vote fly info"),
     ;
 
     private EssentialsPlugin plugin;

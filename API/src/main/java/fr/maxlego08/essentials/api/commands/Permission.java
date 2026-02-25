@@ -309,7 +309,13 @@ public enum Permission {
     ESSENTIALS_STEP_START,
     ESSENTIALS_STEP_FINISH,
     ESSENTIALS_ITEMFRAME,
-    ESSENTIALS_SILENT_DEATH("Allows you to die silently without a death message");
+    ESSENTIALS_SILENT_DEATH("Allows you to die silently without a death message"),
+    ESSENTIALS_VOTEFLY,
+    ESSENTIALS_VOTEFLY_ADD,
+    ESSENTIALS_VOTEFLY_REMOVE,
+    ESSENTIALS_VOTEFLY_SET,
+    ESSENTIALS_VOTEFLY_GET,
+    ESSENTIALS_VOTEFLY_BYPASS_WORLD("Allows to activate vote fly even in the world where fly is disabled");
 
     private final String description;
     private final String[] args;

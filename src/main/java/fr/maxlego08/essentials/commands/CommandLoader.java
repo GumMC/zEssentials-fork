@@ -22,6 +22,7 @@ import fr.maxlego08.essentials.commands.commands.economy.CommandPayToggle;
 import fr.maxlego08.essentials.commands.commands.enderchest.CommandEnderChest;
 import fr.maxlego08.essentials.commands.commands.enderchest.CommandEnderSee;
 import fr.maxlego08.essentials.commands.commands.fly.CommandFly;
+import fr.maxlego08.essentials.commands.commands.votefly.CommandVoteFly;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameMode;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeAdventure;
 import fr.maxlego08.essentials.commands.commands.gamemode.CommandGameModeCreative;
@@ -170,6 +171,7 @@ public class CommandLoader {
         register("compactall", CommandCompactAll.class, "blocksall", "condenseall");
         register("hat", CommandHat.class);
         register("fly", CommandFly.class);
+        register("votefly", CommandVoteFly.class);
         register("anvil", CommandAnvil.class);
         register("cartographytable", CommandCartographyTable.class);
         register("grindstone", CommandGrindStone.class);

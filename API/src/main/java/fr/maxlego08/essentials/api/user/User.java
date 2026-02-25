@@ -1008,6 +1008,34 @@ public interface User {
     void removeFlySeconds(long seconds);
 
     /**
+     * Retrieves the total vote fly time for the user in seconds.
+     *
+     * @return the total vote fly time in seconds
+     */
+    long getVoteFlySeconds();
+
+    /**
+     * Sets the total vote fly time for the user in seconds.
+     *
+     * @param seconds the total vote fly time in seconds
+     */
+    void setVoteFlySeconds(long seconds);
+
+    /**
+     * Adds the specified number of seconds to the user's vote fly time.
+     *
+     * @param seconds the number of seconds to add to the user's vote fly time
+     */
+    void addVoteFlySeconds(long seconds);
+
+    /**
+     * Removes the specified number of seconds from the user's vote fly time.
+     *
+     * @param seconds the number of seconds to remove from the user's vote fly time
+     */
+    void removeVoteFlySeconds(long seconds);
+
+    /**
      * Retrieves the linked Discord account for the user.
      *
      * @return the linked Discord account

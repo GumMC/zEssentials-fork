@@ -483,6 +483,16 @@ public class JsonStorage extends StorageHelper implements IStorage {
     }
 
     @Override
+    public void upsertVoteFlySeconds(UUID uniqueId, long voteFlySeconds) {
+        throw new NotImplementedException("upsertVoteFly is not implemented, use MYSQL storage");
+    }
+
+    @Override
+    public long getVoteFlySeconds(UUID uniqueId) {
+        return 0;
+    }
+
+    @Override
     public void deleteWorldData(String worldName) {
         throw new NotImplementedException("upsertFly is not implemented, use MYSQL storage");
     }

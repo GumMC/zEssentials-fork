@@ -1,0 +1,572 @@
+########################################################################################################################
+#
+# Icon Mapping Configuration
+#
+# Allows players to type :icon_name: in chat to display custom icons/glyphs.
+# Tab completion shows available icons when typing ':'.
+#
+# Permission logic (per icon):
+#   1. If the player has the CATEGORY permission  → all icons in that category are unlocked.
+#   2. Else if the icon has its own permission     → that permission is checked.
+#   3. If neither is configured                   → everyone can use the icon.
+#
+# Tab completion format:
+#   :icon_name: ●   (when tab field is blank)
+#   :icon_name: <tab_char>  (when tab field has a value)
+#
+########################################################################################################################
+
+icon-mapping:
+  enable: true
+
+  categories:
+
+    christmas:
+      permission: 'zessentials.chat.icon.christmas'
+      icons:
+        candy_cane:
+          - tab: 'ꓭ'
+            value: '<white>ꓭ</white>'
+            permission: zessentials.chat.christmas.candy_cane
+        christmas_tree:
+          - tab: 'ꓮ'
+            value: '<white>ꓮ</white>'
+            permission: zessentials.chat.christmas.christmas_tree
+        elf:
+          - tab: 'ꓯ'
+            value: '<white>ꓯ</white>'
+            permission: zessentials.chat.christmas.elf
+        gift:
+          - tab: 'ꓰ'
+            value: '<white>ꓰ</white>'
+            permission: zessentials.chat.christmas.gift
+        gingerbread_man:
+          - tab: 'ꓱ'
+            value: '<white>ꓱ</white>'
+            permission: zessentials.chat.christmas.gingerbread_man
+        hot_chocolate:
+          - tab: 'ꓲ'
+            value: '<white>ꓲ</white>'
+            permission: zessentials.chat.christmas.hot_chocolate
+        milk_and_cookies:
+          - tab: 'ꓳ'
+            value: '<white>ꓳ</white>'
+            permission: zessentials.chat.christmas.milk_and_cookies
+        mistletoe:
+          - tab: 'ꓴ'
+            value: '<white>ꓴ</white>'
+            permission: zessentials.chat.christmas.mistletoe
+        ornament:
+          - tab: 'ꓵ'
+            value: '<white>ꓵ</white>'
+            permission: zessentials.chat.christmas.ornament
+        penguin:
+          - tab: 'ꓶ'
+            value: '<white>ꓶ</white>'
+            permission: zessentials.chat.christmas.penguin
+        reindeer:
+          - tab: 'ꓷ'
+            value: '<white>ꓷ</white>'
+            permission: zessentials.chat.christmas.reindeer
+        santa:
+          - tab: 'ꓸ'
+            value: '<white>ꓸ</white>'
+            permission: zessentials.chat.christmas.santa
+        snowflake:
+          - tab: 'ꓹ'
+            value: '<white>ꓹ</white>'
+            permission: zessentials.chat.christmas.snowflake
+        snowman:
+          - tab: 'ꓺ'
+            value: '<white>ꓺ</white>'
+            permission: zessentials.chat.christmas.snowman
+        stocking:
+          - tab: 'ꓻ'
+            value: '<white>ꓻ</white>'
+            permission: zessentials.chat.christmas.stocking
+        wreath:
+          - tab: 'ꓼ'
+            value: '<white>ꓼ</white>'
+            permission: zessentials.chat.christmas.wreath
+
+    default:
+      permission: 'zessentials.chat.icon.default'
+      icons:
+        angry:
+          - tab: 'ꓽ'
+            value: '<white>ꓽ</white>'
+        cold:
+          - tab: '꓾'
+            value: '<white>꓾</white>'
+        eyes:
+          - tab: '꓿'
+            value: '<white>꓿</white>'
+        flushed:
+          - tab: 'ꔀ'
+            value: '<white>ꔀ</white>'
+        heart_eyes:
+          - tab: 'ꔁ'
+            value: '<white>ꔁ</white>'
+        heart:
+          - tab: 'ꔂ'
+            value: '<white>ꔂ</white>'
+        joy:
+          - tab: 'ꔃ'
+            value: '<white>ꔃ</white>'
+        nerd:
+          - tab: 'ꔅ'
+            value: '<white>ꔅ</white>'
+        ok:
+          - tab: 'ꔆ'
+            value: '<white>ꔆ</white>'
+        pensive:
+          - tab: 'ꔇ'
+            value: '<white>ꔇ</white>'
+        pleading:
+          - tab: 'ꔈ'
+            value: '<white>ꔈ</white>'
+        pointing_up:
+          - tab: 'ꔉ'
+            value: '<white>ꔉ</white>'
+        pray:
+          - tab: 'ꔊ'
+            value: '<white>ꔊ</white>'
+        relieved:
+          - tab: 'ꔋ'
+            value: '<white>ꔋ</white>'
+        rolling_eyes:
+          - tab: 'ꔌ'
+            value: '<white>ꔌ</white>'
+        skull:
+          - tab: 'ꔍ'
+            value: '<white>ꔍ</white>'
+        smile:
+          - tab: 'ꔎ'
+            value: '<white>ꔎ</white>'
+        sob:
+          - tab: 'ꔏ'
+            value: '<white>ꔏ</white>'
+        sunglasses:
+          - tab: 'ꔐ'
+            value: '<white>ꔐ</white>'
+        thinking:
+          - tab: 'ꔑ'
+            value: '<white>ꔑ</white>'
+        thumbs_up:
+          - tab: 'ꔒ'
+            value: '<white>ꔒ</white>'
+        clown:
+          - tab: 'ꕆ'
+            value: '<white>ꕆ</white>'
+        expressionless:
+          - tab: 'ꕇ'
+            value: '<white>ꕇ</white>'
+        fingers_crossed:
+          - tab: 'ꕈ'
+            value: '<white>ꕈ</white>'
+        grimacing:
+          - tab: 'ꕉ'
+            value: '<white>ꕉ</white>'
+        heart_hands:
+          - tab: 'ꕊ'
+            value: '<white>ꕊ</white>'
+        holding_back_tears:
+          - tab: 'ꕋ'
+            value: '<white>ꕋ</white>'
+        innocent:
+          - tab: 'ꕌ'
+            value: '<white>ꕌ</white>'
+        lemon:
+          - tab: 'ꕍ'
+            value: '<white>ꕍ</white>'
+        lying_face:
+          - tab: 'ꕎ'
+            value: '<white>ꕎ</white>'
+        pleading2:
+          - tab: 'ꕏ'
+            value: '<white>ꕏ</white>'
+        raised_eyebrow:
+          - tab: 'ꕐ'
+            value: '<white>ꕐ</white>'
+        saluting_face:
+          - tab: 'ꕑ'
+            value: '<white>ꕑ</white>'
+        shrug:
+          - tab: 'ꕒ'
+            value: '<white>ꕒ</white>'
+        tada:
+          - tab: 'ꕓ'
+            value: '<white>ꕓ</white>'
+        upside_down:
+          - tab: 'ꕔ'
+            value: '<white>ꕔ</white>'
+        wave:
+          - tab: 'ꕕ'
+            value: '<white>ꕕ</white>'
+        yawning_face:
+          - tab: 'ꕖ'
+            value: '<white>ꕖ</white>'
+        zany_face:
+          - tab: 'ꕗ'
+            value: '<white>ꕗ</white>'
+
+    pepe:
+      permission: 'zessentials.chat.icon.pepe'
+      icons:
+        pepe_blush:
+          - tab: 'ꔓ'
+            value: '<white>ꔓ</white>'
+            permission: zessentials.chat.pepe.blush
+        pepe_clown:
+          - tab: 'ꔔ'
+            value: '<white>ꔔ</white>'
+            permission: zessentials.chat.pepe.clown
+        pepe_hands:
+          - tab: 'ꔕ'
+            value: '<white>ꔕ</white>'
+            permission: zessentials.chat.pepe.hands
+        pepe_happy:
+          - tab: 'ꔖ'
+            value: '<white>ꔖ</white>'
+            permission: zessentials.chat.pepe.happy
+        pepe_heart:
+          - tab: 'ꔗ'
+            value: '<white>ꔗ</white>'
+            permission: zessentials.chat.pepe.heart
+        pepe_king:
+          - tab: 'ꔘ'
+            value: '<white>ꔘ</white>'
+            permission: zessentials.chat.pepe.king
+        pepe_laugh:
+          - tab: 'ꔙ'
+            value: '<white>ꔙ</white>'
+            permission: zessentials.chat.pepe.laugh
+        pepe_megaj:
+          - tab: 'ꔚ'
+            value: '<white>ꔚ</white>'
+            permission: zessentials.chat.pepe.megaj
+        pepe_ok:
+          - tab: 'ꔛ'
+            value: '<white>ꔛ</white>'
+            permission: zessentials.chat.pepe.ok
+        pepe_poggers:
+          - tab: 'ꔜ'
+            value: '<white>ꔜ</white>'
+            permission: zessentials.chat.pepe.poggers
+        pepe_queen:
+          - tab: 'ꔝ'
+            value: '<white>ꔝ</white>'
+            permission: zessentials.chat.pepe.queen
+        pepe_superhappy:
+          - tab: 'ꔞ'
+            value: '<white>ꔞ</white>'
+            permission: zessentials.chat.pepe.superhappy
+        pepe_think:
+          - tab: 'ꔟ'
+            value: '<white>ꔟ</white>'
+            permission: zessentials.chat.pepe.think
+        pepe_wave:
+          - tab: 'ꔠ'
+            value: '<white>ꔠ</white>'
+            permission: zessentials.chat.pepe.wave
+        pepe_wicked:
+          - tab: 'ꔡ'
+            value: '<white>ꔡ</white>'
+            permission: zessentials.chat.pepe.wicked
+
+    staff:
+      permission: zessentials.chat.icon.staff
+      icons:
+        staff_basedge:
+          - tab: 'ꔢ'
+            value: '<white>ꔢ</white>'
+        staff_dab:
+          - tab: 'ꔣ'
+            value: '<white>ꔣ</white>'
+        staff_desteria:
+          - tab: 'ꔤ'
+            value: '<white>ꔤ</white>'
+        staff_ez:
+          - tab: 'ꔥ'
+            value: '<white>ꔥ</white>'
+        staff_gayge:
+          - tab: 'ꔦ'
+            value: '<white>ꔦ</white>'
+        staff_hmm:
+          - tab: 'ꔧ'
+            value: '<white>ꔧ</white>'
+        staff_keks:
+          - tab: 'ꔨ'
+            value: '<white>ꔨ</white>'
+        staff_kekw:
+          - tab: 'ꔩ'
+            value: '<white>ꔩ</white>'
+        staff_madge:
+          - tab: 'ꔬ'
+            value: '<white>ꔬ</white>'
+        staff_pausechamp:
+          - tab: 'ꔭ'
+            value: '<white>ꔭ</white>'
+        staff_peng:
+          - tab: 'ꔮ'
+            value: '<white>ꔮ</white>'
+        staff_pepe_sip:
+          - tab: 'ꔰ'
+            value: '<white>ꔰ</white>'
+        staff_pepega:
+          - tab: 'ꔱ'
+            value: '<white>ꔱ</white>'
+        staff_pepela:
+          - tab: 'ꔲ'
+            value: '<white>ꔲ</white>'
+        staff_pogyou:
+          - tab: 'ꔳ'
+            value: '<white>ꔳ</white>'
+        staff_sadge:
+          - tab: 'ꔴ'
+            value: '<white>ꔴ</white>'
+        staff_smadge:
+          - tab: 'ꔵ'
+            value: '<white>ꔵ</white>'
+        staff_star:
+          - tab: 'ꔶ'
+            value: '<white>ꔶ</white>'
+        staff_susge:
+          - tab: 'ꔷ'
+            value: '<white>ꔷ</white>'
+
+    valentines:
+      permission: zessentials.chat.icon.valentines
+      icons:
+        valentines_bear:
+          - tab: 'ꔸ'
+            value: '<white>ꔸ</white>'
+            permission: zessentials.chat.valentine.bear
+        valentines_gift:
+          - tab: 'ꔹ'
+            value: '<white>ꔹ</white>'
+            permission: zessentials.chat.valentine.gift
+        valentines_heart_bow:
+          - tab: 'ꔺ'
+            value: '<white>ꔺ</white>'
+            permission: zessentials.chat.valentine.heart_bow
+        valentines_heart_tint:
+          - tab: 'ꔻ'
+            value: '<white>ꔻ</white>'
+            permission: zessentials.chat.valentine.heart_tint
+        valentines_heart:
+          - tab: 'ꔼ'
+            value: '<white>ꔼ</white>'
+            permission: zessentials.chat.valentine.heart
+        valentines_hearts_tint:
+          - tab: 'ꔽ'
+            value: '<white>ꔽ</white>'
+            permission: zessentials.chat.valentine.hearts_tint
+        valentines_hearts:
+          - tab: 'ꔾ'
+            value: '<white>ꔾ</white>'
+            permission: zessentials.chat.valentine.hearts
+        valentines_rings:
+          - tab: 'ꔿ'
+            value: '<white>ꔿ</white>'
+            permission: zessentials.chat.valentine.rings
+        valentines_rose:
+          - tab: 'ꕀ'
+            value: '<white>ꕀ</white>'
+            permission: zessentials.chat.valentine.rose
+        valentine_candy:
+          - tab: 'ꕘ'
+            value: '<white>ꕘ</white>'
+            permission: zessentials.chat.valentine.candy
+        valentine_chocolate:
+          - tab: 'ꕙ'
+            value: '<white>ꕙ</white>'
+            permission: zessentials.chat.valentine.chocolate
+        valentine_chocolate_heart:
+          - tab: 'ꕚ'
+            value: '<white>ꕚ</white>'
+            permission: zessentials.chat.valentine.chocolate_heart
+        valentine_flowers:
+          - tab: 'ꕛ'
+            value: '<white>ꕛ</white>'
+            permission: zessentials.chat.valentine.flowers
+        valentine_gift2:
+          - tab: 'ꕜ'
+            value: '<white>ꕜ</white>'
+            permission: zessentials.chat.valentine.gift2
+        valentine_lock:
+          - tab: 'ꕝ'
+            value: '<white>ꕝ</white>'
+            permission: zessentials.chat.valentine.lock
+        valentine_love_arrow:
+          - tab: 'ꕞ'
+            value: '<white>ꕞ</white>'
+            permission: zessentials.chat.valentine.love_arrow
+        valentine_love_letter:
+          - tab: 'ꕟ'
+            value: '<white>ꕟ</white>'
+            permission: zessentials.chat.valentine.love_letter
+        valentine_pink_heart:
+          - tab: 'ꕠ'
+            value: '<white>ꕠ</white>'
+            permission: zessentials.chat.valentine.pink_heart
+        valentine_pink_teddy:
+          - tab: 'ꕡ'
+            value: '<white>ꕡ</white>'
+            permission: zessentials.chat.valentine.pink_teddy
+        valentine_red_heart:
+          - tab: 'ꕢ'
+            value: '<white>ꕢ</white>'
+            permission: zessentials.chat.valentine.red_heart
+        valentine_ring:
+          - tab: 'ꕣ'
+            value: '<white>ꕣ</white>'
+            permission: zessentials.valentine.ring
+        valentine_teddy:
+          - tab: 'ꕤ'
+            value: '<white>ꕤ</white>'
+            permission: zessentials.chat.valentine.teddy
+
+    animated:
+      permission: zessentials.chat.icon.animated
+      icons:
+        waytoodank:
+          - tab: ' '
+            value: '<white><glyph:waytoodank></white>'
+            permission: zessentials.chat.animated.waytoodank
+        nod:
+          - tab: ' '
+            value: '<white><glyph:nod></white>'
+            permission: zessentials.chat.animated.nod
+        catyes:
+          - tab: ' '
+            value: '<white><glyph:catyes></white>'
+            permission: zessentials.chat.animated.catyes
+        lol:
+          - tab: ' '
+            value: '<white><glyph:lol></white>'
+            permission: zessentials.chat.animated.lol
+        evil:
+          - tab: ' '
+            value: '<white><glyph:evil></white>'
+            permission: zessentials.chat.animated.evil
+        popcat:
+          - tab: ' '
+            value: '<white><glyph:popcat></white>'
+            permission: zessentials.chat.animated.popcat
+        hi:
+          - tab: ' '
+            value: '<white><glyph:hi></white>'
+            permission: zessentials.chat.animated.hi
+        sussy:
+          - tab: ' '
+            value: '<white><glyph:sussy></white>'
+            permission: zessentials.chat.animated.sussy
+        aware:
+          - tab: ' '
+            value: '<white><glyph:aware></white>'
+            permission: zessentials.chat.animated.aware
+        donowall:
+          - tab: ' '
+            value: '<white><glyph:donowall></white>'
+            permission: zessentials.chat.animated.donowall
+        ragey:
+          - tab: ' '
+            value: '<white><glyph:ragey></white>'
+            permission: zessentials.chat.animated.ragey
+        noooo:
+          - tab: ' '
+            value: '<white><glyph:noooo></white>'
+            permission: zessentials.chat.animated.noooo
+        catjam:
+          - tab: ' '
+            value: '<white><glyph:catjam></white>'
+            permission: zessentials.chat.animated.catjam
+        catkiss:
+          - tab: ' '
+            value: '<white><glyph:catkiss></white>'
+            permission: zessentials.chat.animated.catkiss
+
+    ghost:
+      permission: zessentials.chat.icon.ghost
+      icons:
+        ghostangry:
+          - tab: ' '
+            value: '<white><glyph:ghost_angry></white>'
+            permission: zessentials.chat.ghost.angry
+        ghostdisappointed:
+          - tab: ' '
+            value: '<white><glyph:ghost_disappointed_relieved></white>'
+            permission: zessentials.chat.ghost.disappointed_relieved
+        ghostdizzy:
+          - tab: ' '
+            value: '<white><glyph:ghost_dizzy_face></white>'
+            permission: zessentials.chat.ghost.dizzy_face
+        ghostfearful:
+          - tab: ' '
+            value: '<white><glyph:ghost_fearful></white>'
+            permission: zessentials.chat.ghost.fearful
+        ghostgrinning:
+          - tab: ' '
+            value: '<white><glyph:ghost_grinning></white>'
+            permission: zessentials.chat.ghost.grinning
+        ghostinnocent:
+          - tab: ' '
+            value: '<white><glyph:ghost_innocent></white>'
+            permission: zessentials.chat.ghost.innocent
+        ghostjoy:
+          - tab: ' '
+            value: '<white><glyph:ghost_joy></white>'
+            permission: zessentials.chat.ghost.joy
+        ghostkissing:
+          - tab: ' '
+            value: '<white><glyph:ghost_kissing_heart></white>'
+            permission: zessentials.chat.ghost.kissing_heart
+        ghostmoney:
+          - tab: ' '
+            value: '<white><glyph:ghost_money_mouth></white>'
+            permission: zessentials.chat.ghost.money_mouth
+        ghostnauseated:
+          - tab: ' '
+            value: '<white><glyph:ghost_nauseated_face></white>'
+            permission: zessentials.chat.ghost.nauseated_face
+        ghostsaluting:
+          - tab: ' '
+            value: '<white><glyph:ghost_saluting_face></white>'
+            permission: zessentials.chat.ghost.saluting_face
+        ghostscream:
+          - tab: ' '
+            value: '<white><glyph:ghost_scream></white>'
+            permission: zessentials.chat.ghost.scream
+        ghostsmile:
+          - tab: ' '
+            value: '<white><glyph:ghost_smile></white>'
+            permission: zessentials.chat.ghost.smile
+        ghostsmilinghearts:
+          - tab: ' '
+            value: '<white><glyph:ghost_smiling_face_with_3_heats></white>'
+            permission: zessentials.chat.ghost.smiling_face_with_3_heats
+        ghostsmilingimp:
+          - tab: ' '
+            value: '<white><glyph:ghost_smiling_imp></white>'
+            permission: zessentials.chat.ghost.smiling_imp
+        ghostsob:
+          - tab: ' '
+            value: '<white><glyph:ghost_sob></white>'
+            permission: zessentials.chat.ghost.sob
+        ghoststarstruck:
+          - tab: ' '
+            value: '<white><glyph:ghost_star_struck></white>'
+            permission: zessentials.chat.ghost.star_struck
+        ghoststruckout:
+          - tab: ' '
+            value: '<white><glyph:ghost_stuck_out_tongue_closed></white>'
+            permission: zessentials.chat.ghost.stuck_out_tongue_closed
+        ghostsunglasses:
+          - tab: ' '
+            value: '<white><glyph:ghost_sunglasses></white>'
+            permission: zessentials.chat.ghost.sunglasses
+        ghostthinking:
+          - tab: ' '
+            value: '<white><glyph:ghost_thinking></white>'
+            permission: zessentials.chat.ghost.thinking

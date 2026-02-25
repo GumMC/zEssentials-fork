@@ -24,12 +24,14 @@ import fr.maxlego08.essentials.zutils.utils.TimerBuilder;
 import fr.maxlego08.essentials.zutils.utils.paper.PaperComponent;
 import fr.maxlego08.menu.api.engine.Pagination;
 import io.papermc.paper.event.player.AsyncChatEvent;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -40,6 +42,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -97,6 +100,14 @@ public class ChatModule extends ZModule {
     private float playerPingSoundPitch;
     private boolean enableLocalChat;
     private double localChatDistance;
+    private ForbiddenUnicode forbiddenUnicode;
+
+    // ── Icon mapping ──────────────────────────────────────────────────────────
+    /** Flat map of icon-name → IconEntry (rebuilt on every reload). */
+    private final Map<String, IconEntry> iconMap = new LinkedHashMap<>();
+    /** Category name → category-level permission string. */
+    private final Map<String, String> iconCategoryPermissions = new LinkedHashMap<>();
+    private boolean iconMappingEnabled = false;
 
 
     public ChatModule(ZEssentialsPlugin plugin) {
@@ -155,6 +166,64 @@ public class ChatModule extends ZModule {
         }
 
         this.customRules.removeIf(CustomRules::isNotValid);
+
+        this.plugin.saveOrUpdateConfiguration("modules/chat/forbidden-unicode.yml", false);
+        File forbiddenFile = new File(getFolder(), "forbidden-unicode.yml");
+        YamlConfiguration forbiddenConfig = YamlConfiguration.loadConfiguration(forbiddenFile);
+        List<String> forbiddenChars = forbiddenConfig.getStringList("forbidden-unicode");
+        boolean cancelOnFail = forbiddenConfig.getBoolean("cancel-on-fail", false);
+        this.forbiddenUnicode = new ForbiddenUnicode(forbiddenChars, cancelOnFail);
+
+        loadIconMapping();
+    }
+
+    private void loadIconMapping() {
+        this.iconMap.clear();
+        this.iconCategoryPermissions.clear();
+
+        this.plugin.saveOrUpdateConfiguration("modules/chat/icon-mapping.yml", false);
+        File iconFile = new File(getFolder(), "icon-mapping.yml");
+        YamlConfiguration iconConfig = YamlConfiguration.loadConfiguration(iconFile);
+
+        this.iconMappingEnabled = iconConfig.getBoolean("icon-mapping.enable", false);
+        if (!this.iconMappingEnabled) return;
+
+        ConfigurationSection categories = iconConfig.getConfigurationSection("icon-mapping.categories");
+        if (categories == null) return;
+
+        for (String categoryName : categories.getKeys(false)) {
+            ConfigurationSection catSection = categories.getConfigurationSection(categoryName);
+            if (catSection == null) continue;
+
+            String catPerm = catSection.getString("permission", "");
+            this.iconCategoryPermissions.put(categoryName, catPerm);
+
+            ConfigurationSection iconsSection = catSection.getConfigurationSection("icons");
+            if (iconsSection == null) continue;
+
+            for (String iconName : iconsSection.getKeys(false)) {
+                List<?> entries = iconsSection.getList(iconName);
+                if (entries == null || entries.isEmpty()) continue;
+
+                Object first = entries.get(0);
+                if (!(first instanceof Map<?, ?> rawMap)) continue;
+                @SuppressWarnings("unchecked")
+                Map<String, Object> entryMap = (Map<String, Object>) rawMap;
+
+                String tab = String.valueOf(entryMap.getOrDefault("tab", ""));
+                String value = String.valueOf(entryMap.getOrDefault("value", ""));
+                String perm = entryMap.containsKey("permission") ? String.valueOf(entryMap.get("permission")) : null;
+
+                this.iconMap.put(iconName, new IconEntry(iconName, tab, value, perm, categoryName));
+            }
+        }
+
+        if (!this.iconMap.isEmpty()) {
+            this.chatDisplays.add(new IconDisplay(
+                    Collections.unmodifiableMap(this.iconMap),
+                    Collections.unmodifiableMap(this.iconCategoryPermissions)
+            ));
+        }
     }
 
     @EventHandler
@@ -195,6 +264,15 @@ public class ChatModule extends ZModule {
             message(player, optional.get().message());
             event.setCancelled(true);
             return;
+        }
+
+        if (this.forbiddenUnicode != null && !this.forbiddenUnicode.isEmpty() && this.forbiddenUnicode.containsForbidden(message)) {
+            if (this.forbiddenUnicode.isCancelOnFail()) {
+                event.setCancelled(true);
+                return;
+            }
+            message = this.forbiddenUnicode.removeForbidden(message);
+            event.message(Component.text(message));
         }
 
         ChatResult chatResult = analyzeMessage(user, message);
@@ -349,23 +427,64 @@ public class ChatModule extends ZModule {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         updatePlayerNamePattern();
+        removeIconCompletions(event.getPlayer());
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         updatePlayerNamePattern();
+        addIconCompletions(event.getPlayer());
+    }
+
+    private void addIconCompletions(Player player) {
+        if (!this.iconMappingEnabled || this.iconMap.isEmpty()) return;
+
+        List<String> completions = buildIconCompletions(player);
+        if (!completions.isEmpty()) {
+            player.addCustomChatCompletions(completions);
+        }
+    }
+
+    private void removeIconCompletions(Player player) {
+        if (!this.iconMappingEnabled || this.iconMap.isEmpty()) return;
+
+        List<String> completions = buildIconCompletions(player);
+        if (!completions.isEmpty()) {
+            player.removeCustomChatCompletions(completions);
+        }
+    }
+
+    private List<String> buildIconCompletions(Player player) {
+        List<String> result = new ArrayList<>();
+        for (IconEntry entry : this.iconMap.values()) {
+            if (canUseIcon(player, entry)) {
+                result.add(entry.completionValue());
+            }
+        }
+        return result;
+    }
+
+    public void refreshIconCompletions(Player player) {
+        if (!this.iconMappingEnabled || this.iconMap.isEmpty()) return;
+        player.setCustomChatCompletions(buildIconCompletions(player));
+    }
+
+    private boolean canUseIcon(Player player, IconEntry entry) {
+        String catPerm = this.iconCategoryPermissions.get(entry.category());
+        if (catPerm != null && !catPerm.isBlank() && player.hasPermission(catPerm)) return true;
+        if (entry.permission() != null && !entry.permission().isBlank()) return player.hasPermission(entry.permission());
+        return true;
     }
 
     private boolean containsTooManyCaps(String message) {
         if (this.playerNamePattern != null) {
             Matcher matcher = this.playerNamePattern.matcher(message);
-            message = matcher.replaceAll("");  // Remove nicknames from players
+            message = matcher.replaceAll("");
         }
 
         int upperCaseCount = 0;
         int totalLetterCount = 0;
 
-        // Count the number of capital letters and total letters
         for (char c : message.toCharArray()) {
             if (Character.isLetter(c)) {
                 totalLetterCount++;
@@ -375,15 +494,12 @@ public class ChatModule extends ZModule {
             }
         }
 
-        // If the message does not contain letters, it cannot be considered capitalized spam
         if (totalLetterCount == 0) {
             return false;
         }
 
-        // Calculate percentage of caps
         double upperCasePercentage = (double) upperCaseCount / totalLetterCount;
 
-        // Check if the percentage of caps exceeds the threshold
         return upperCasePercentage > capsThreshold;
     }
 

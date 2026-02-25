@@ -1,0 +1,37 @@
+########################################################################################################################
+#
+# Forbidden Unicode Filter
+# Documentation: https://zessentials.groupez.dev/modules/chat
+#
+# Controls how chat messages containing forbidden Unicode characters are handled.
+#
+# cancel-on-fail:
+#   false (default) - Lenient mode:
+#     Forbidden characters are silently removed and the cleaned message is sent normally.
+#     Suitable for servers that prefer a less-restrictive experience.
+#
+#   true - Strict mode:
+#     The entire message is cancelled when a forbidden character is detected.
+#     The player must retype their message without forbidden characters.
+#     Suitable for servers with strict moderation policies.
+#
+# Example:
+#   cancel-on-fail: false
+#   Message "Hello ꓭ world" → removes ꓭ → "Hello  world" is sent
+#
+#   cancel-on-fail: true
+#   Message "Hello ꓭ world" → entire message cancelled, nothing is sent
+#
+########################################################################################################################
+
+# Whether to cancel the whole message instead of just removing forbidden characters
+cancel-on-fail: false
+
+# List of forbidden Unicode characters that will be removed (or trigger a cancel) from chat messages.
+# Add the characters directly as list entries.
+# Example:
+#   forbidden-unicode:
+#     - "ꐏ"
+#     - "ꐐ"
+#     - "ꓭ"
+forbidden-unicode: []

@@ -22,7 +22,10 @@ public class UserHomePlaceholders extends ZUtils implements PlaceholderRegister 
                 .map(User::countHomes).orElse(0)), "Returns the number of homes");
 
         // Max home
-        placeholder.register("home_max", (player) -> String.valueOf(plugin.getMaxHome(player)), "Returns the number of max homes");
+        placeholder.register("home_max", (player) -> {
+            int max = plugin.getMaxHome(player);
+            return max == Integer.MAX_VALUE ? "Unlimited" : String.valueOf(max);
+        }, "Returns the number of max homes");
 
         // Check if home exist
         placeholder.register("home_exist_", (player, homeName) -> Optional.ofNullable(iStorage.getUser(player.getUniqueId()))

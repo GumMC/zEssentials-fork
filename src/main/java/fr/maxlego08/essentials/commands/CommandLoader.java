@@ -88,6 +88,7 @@ import fr.maxlego08.essentials.commands.commands.utils.admins.CommandGod;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandInvsee;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandKillAll;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandKittyCannon;
+import fr.maxlego08.essentials.commands.commands.utils.admins.CommandBeezooka;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandPowerTools;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandPowerToolsToggle;
 import fr.maxlego08.essentials.commands.commands.utils.admins.CommandSkull;
@@ -223,6 +224,7 @@ public class CommandLoader {
         register("sanction", CommandSanction.class, "sc");
 
         register("kittycannon", CommandKittyCannon.class);
+        register("beezooka", CommandBeezooka.class);
 
         register("chathistory", CommandChatHistory.class, "ct");
         register("chatclear", CommandChatClear.class, "cl");

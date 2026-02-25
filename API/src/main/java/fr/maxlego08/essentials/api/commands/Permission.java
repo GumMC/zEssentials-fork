@@ -117,6 +117,7 @@ public enum Permission {
     ESSENTIALS_KICK_ALL,
     ESSENTIALS_KICK_BYPASS_ALL("Allows not to be kicked during the kickall"),
     ESSENTIALS_KITTY_CANNON,
+    ESSENTIALS_BEEZOOKA,
     ESSENTIALS_MUTE,
     ESSENTIALS_BAN,
     ESSENTIALS_UNBAN,

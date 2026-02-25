@@ -268,6 +268,7 @@ public enum Message {
     DESCRIPTION_FREEZE("Freeze a player"),
     DESCRIPTION_KICK_ALL("Kick all players"),
     DESCRIPTION_KITTY_CANNON("Launch kitty, wtf you want to do that ? monster"),
+    DESCRIPTION_BEEZOOKA("Launch a bee that explodes on impact"),
     DESCRIPTION_BAN("Ban a player"),
     DESCRIPTION_MUTE("Mute a player"),
     DESCRIPTION_UN_MUTE("Unmute a player"),

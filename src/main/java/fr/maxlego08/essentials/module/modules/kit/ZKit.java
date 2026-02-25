@@ -22,6 +22,7 @@ public class ZKit extends ZUtils implements Kit {
     private final String permission;
     private final String category;
     private final String subCategory;
+    private final String previewTitle;
     private final long cooldown;
     private final Map<String, Long> permissionCooldowns;
     private final List<Action> actions;
@@ -33,12 +34,13 @@ public class ZKit extends ZUtils implements Kit {
     private MenuItemStack leggings;
     private MenuItemStack boots;
 
-    public ZKit(EssentialsPlugin plugin, String displayName, String name, String category, String subCategory, long cooldown, Map<String, Long> permissionCooldowns, List<MenuItemStack> menuItemStacks, List<Action> actions, String permission, File file) {
+    public ZKit(EssentialsPlugin plugin, String displayName, String name, String category, String subCategory, String previewTitle, long cooldown, Map<String, Long> permissionCooldowns, List<MenuItemStack> menuItemStacks, List<Action> actions, String permission, File file) {
         this.plugin = plugin;
         this.displayName = displayName;
         this.name = name;
         this.category = category;
         this.subCategory = subCategory;
+        this.previewTitle = previewTitle;
         this.cooldown = cooldown;
         this.permissionCooldowns = permissionCooldowns;
         this.menuItemStacks = menuItemStacks;
@@ -192,5 +194,10 @@ public class ZKit extends ZUtils implements Kit {
     @Override
     public boolean hasSubCategory() {
         return this.subCategory != null;
+    }
+
+    @Override
+    public String getPreviewTitle() {
+        return this.previewTitle;
     }
 }

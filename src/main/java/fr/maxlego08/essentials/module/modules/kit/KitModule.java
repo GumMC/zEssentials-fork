@@ -119,6 +119,7 @@ public class KitModule extends ZModule {
         String permission = configuration.getString("permission", Permission.ESSENTIALS_KIT_.asPermission(name));
         String category = configuration.getString("category", null);
         String subCategory = configuration.getString("sub-category", null);
+        String previewTitle = configuration.getString("preview-title", null);
 
         if (this.exist(name)) {
             this.plugin.getLogger().severe("Kit " + name + " already exist !");
@@ -146,7 +147,7 @@ public class KitModule extends ZModule {
 
         List<Action> actions = this.plugin.getButtonManager().loadActions((List<Map<String, Object>>) configuration.getList("actions", new ArrayList<>()), "actions", file);
 
-        var kit = new ZKit(this.plugin, displayName, name, category, subCategory, cooldown, permissionCooldowns, items, actions, permission, file);
+        var kit = new ZKit(this.plugin, displayName, name, category, subCategory, previewTitle, cooldown, permissionCooldowns, items, actions, permission, file);
 
         loadKitEquipment(kit, configuration, this.plugin.getInventoryManager(), "helmet.", EquipmentSlot.HEAD);
         loadKitEquipment(kit, configuration, this.plugin.getInventoryManager(), "chestplate.", EquipmentSlot.CHEST);
@@ -321,7 +322,7 @@ public class KitModule extends ZModule {
             exception.printStackTrace();
         }
 
-        Kit kit = new ZKit(this.plugin, kitName, kitName, null, null, cooldown, new HashMap<>(), new ArrayList<>(), new ArrayList<>(), Permission.ESSENTIALS_KIT_.asPermission(kitName), file);
+        Kit kit = new ZKit(this.plugin, kitName, kitName, null, null, null, cooldown, new HashMap<>(), new ArrayList<>(), new ArrayList<>(), Permission.ESSENTIALS_KIT_.asPermission(kitName), file);
 
         this.kits.add(kit);
         this.saveKit(kit);

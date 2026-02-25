@@ -108,7 +108,6 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
         MigrationManager.registerMigration(new DropStepMigration());
         MigrationManager.registerMigration(new CreateUserStepV2Migration());
-        MigrationManager.registerMigration(new UpdateUserTableAddVoteFlyColumn());
 
         // Repositories
         this.repositories = new Repositories(plugin, this.connection);
@@ -159,7 +158,6 @@ public class SqlStorage extends StorageHelper implements IStorage {
         var privateMessages = this.cache.get(PrivateMessageDTO.class);
         var transactions = this.cache.get(EconomyTransactionDTO.class);
         var flights = this.cache.get(FlyDTO.class);
-        var voteFlights = this.cache.get(VoteFlyDTO.class);
 
         async(() -> {
             with(CommandsRepository.class).insertCommands(commands);
@@ -167,7 +165,6 @@ public class SqlStorage extends StorageHelper implements IStorage {
             with(PrivateMessagesRepository.class).insertMessages(privateMessages);
             with(EconomyTransactionsRepository.class).insertTransactions(transactions);
             with(UserRepository.class).upsertFly(flights);
-            with(UserRepository.class).upsertVoteFly(voteFlights);
         });
 
         this.cache.clearAll();
@@ -746,17 +743,6 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public long getFlySeconds(UUID uniqueId) {
         return with(UserRepository.class).selectFly(uniqueId);
-    }
-
-    @Override
-    public void upsertVoteFlySeconds(UUID uniqueId, long voteFlySeconds) {
-        this.cache.get(VoteFlyDTO.class).removeIf(e -> e.unique_id().equals(uniqueId));
-        this.cache.add(new VoteFlyDTO(uniqueId, voteFlySeconds));
-    }
-
-    @Override
-    public long getVoteFlySeconds(UUID uniqueId) {
-        return with(UserRepository.class).selectVoteFly(uniqueId);
     }
 
     @Override

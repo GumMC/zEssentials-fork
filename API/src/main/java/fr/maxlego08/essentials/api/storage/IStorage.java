@@ -565,22 +565,6 @@ public interface IStorage {
     long getFlySeconds(UUID uniqueId);
 
     /**
-     * Upserts the vote fly seconds.
-     *
-     * @param uniqueId       the UUID of the user
-     * @param voteFlySeconds the vote fly seconds
-     */
-    void upsertVoteFlySeconds(UUID uniqueId, long voteFlySeconds);
-
-    /**
-     * Retrieves the vote fly seconds.
-     *
-     * @param uniqueId the UUID of the user
-     * @return the vote fly seconds
-     */
-    long getVoteFlySeconds(UUID uniqueId);
-
-    /**
      * Deletes world data.
      *
      * @param worldName the world name

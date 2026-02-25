@@ -76,7 +76,6 @@ public class ZUser extends ZUtils implements User {
     private Map<String, Long> lastVotes = new HashMap<>();
     private Home currentDeleteHome;
     private long flySeconds;
-    private long voteFlySeconds;
     private DiscordAccount discordAccount;
     private long lastActiveTime = System.currentTimeMillis();
     private boolean manualAfk;
@@ -915,7 +914,6 @@ public class ZUser extends ZUtils implements User {
         this.lastLocation = stringAsLocation(userDTO.last_location());
         this.freeze = userDTO.frozen() != null && userDTO.frozen();
         this.flySeconds = userDTO.fly_seconds();
-        this.voteFlySeconds = userDTO.vote_fly_seconds();
     }
 
     @Override
@@ -1025,29 +1023,6 @@ public class ZUser extends ZUtils implements User {
     public void removeFlySeconds(long seconds) {
         this.flySeconds -= seconds;
         getStorage().upsertFlySeconds(this.uniqueId, this.flySeconds);
-    }
-
-    @Override
-    public long getVoteFlySeconds() {
-        return this.voteFlySeconds;
-    }
-
-    @Override
-    public void setVoteFlySeconds(long seconds) {
-        this.voteFlySeconds = seconds;
-        getStorage().upsertVoteFlySeconds(this.uniqueId, this.voteFlySeconds);
-    }
-
-    @Override
-    public void addVoteFlySeconds(long seconds) {
-        this.voteFlySeconds += seconds;
-        getStorage().upsertVoteFlySeconds(this.uniqueId, this.voteFlySeconds);
-    }
-
-    @Override
-    public void removeVoteFlySeconds(long seconds) {
-        this.voteFlySeconds -= seconds;
-        getStorage().upsertVoteFlySeconds(this.uniqueId, this.voteFlySeconds);
     }
 
     @Override

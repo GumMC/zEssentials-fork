@@ -2,7 +2,6 @@ package fr.maxlego08.essentials.storage.database.repositeries;
 
 import fr.maxlego08.essentials.api.EssentialsPlugin;
 import fr.maxlego08.essentials.api.dto.FlyDTO;
-import fr.maxlego08.essentials.api.dto.VoteFlyDTO;
 import fr.maxlego08.essentials.api.dto.UserDTO;
 import fr.maxlego08.essentials.api.dto.UserEconomyRankingDTO;
 import fr.maxlego08.essentials.api.dto.UserVoteDTO;
@@ -282,22 +281,6 @@ public class UserRepository extends Repository {
 
     public void upsertFly(List<FlyDTO> flights) {
         flights.forEach(e -> updateFly(e.unique_id(), e.fly_seconds()));
-    }
-
-    public void updateVoteFly(UUID uniqueId, long voteFlySeconds) {
-        update(table -> {
-            table.bigInt("vote_fly_seconds", voteFlySeconds);
-            table.where("unique_id", uniqueId);
-        });
-    }
-
-    public long selectVoteFly(UUID uniqueId) {
-        var users = selectUser(uniqueId);
-        return users.isEmpty() ? 0 : users.getFirst().vote_fly_seconds();
-    }
-
-    public void upsertVoteFly(List<VoteFlyDTO> voteFlyDTOs) {
-        voteFlyDTOs.forEach(e -> updateVoteFly(e.unique_id(), e.vote_fly_seconds()));
     }
 
     public List<String> getPlayerNames() {

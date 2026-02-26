@@ -108,6 +108,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
         MigrationManager.registerMigration(new DropStepMigration());
         MigrationManager.registerMigration(new CreateUserStepV2Migration());
+        MigrationManager.registerMigration(new CreateInboxTableMigration());
 
         // Repositories
         this.repositories = new Repositories(plugin, this.connection);
@@ -133,6 +134,7 @@ public class SqlStorage extends StorageHelper implements IStorage {
         this.repositories.register(LinkHistoryRepository.class);
         this.repositories.register(PrivateMessagesRepository.class);
         this.repositories.register(UserStepRepository.class);
+        this.repositories.register(InboxRepository.class);
 
         MigrationManager.execute(this.connection, JULogger.from(this.plugin.getLogger()));
 

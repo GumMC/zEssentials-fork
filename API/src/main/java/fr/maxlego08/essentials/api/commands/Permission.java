@@ -316,7 +316,17 @@ public enum Permission {
     ESSENTIALS_VOTEFLY_ADD,
     ESSENTIALS_VOTEFLY_REMOVE,
     ESSENTIALS_VOTEFLY_SET,
-    ESSENTIALS_VOTEFLY_GET;
+    ESSENTIALS_VOTEFLY_GET,
+
+    // Inbox Module
+    ESSENTIALS_INBOX,
+    ESSENTIALS_INBOX_READ,
+    ESSENTIALS_INBOX_SEND,
+    ESSENTIALS_INBOX_SENDTEMP,
+    ESSENTIALS_INBOX_SENDALL,
+    ESSENTIALS_INBOX_CLEAR,
+    ESSENTIALS_INBOX_CLEAR_OTHER("Allows to clear another player's inbox"),
+    ESSENTIALS_INBOX_BYPASS_RATELIMIT("Allows to bypass rate limit for sending mails");
 
     private final String description;
     private final String[] args;

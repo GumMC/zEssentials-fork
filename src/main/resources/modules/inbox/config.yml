@@ -1,0 +1,51 @@
+########################################################################################################################
+#
+# ██╗███╗   ██╗██████╗ ██████╗  ██████╗ ██╗  ██╗███████╗
+# ██║████╗  ██║██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝██╔════╝
+# ██║██╔██╗ ██║██████╔╝██████╔╝██║   ██║ ╚███╔╝ █████╗
+# ██║██║╚██╗██║██╔══██╗██╔══██╗██║   ██║ ██╔██╗ ██╔══╝
+# ██║██║ ╚████║██████╔╝██████╔╝╚██████╔╝██╔╝ ██╗███████╗
+# ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚══════╝
+#
+# Inbox Module - Hệ thống Mail văn bản
+# Yêu cầu: SQL Storage (SQLite/MySQL/MariaDB) - KHÔNG hỗ trợ JSON storage
+#
+########################################################################################################################
+
+# Bật/tắt module
+enable: true
+
+# Độ dài tối đa của tin nhắn (ký tự)
+max-message-length: 500
+
+# Số tin nhắn hiển thị mỗi trang
+messages-per-page: 10
+
+# Thời gian chờ giữa các lần gửi mail (giây)
+# Bypass với permission: essentials.inbox.bypass.ratelimit
+rate-limit-seconds: 60
+
+# Bật/tắt tính năng mail tạm thời (có thời hạn)
+enable-temp-mail: true
+
+# Thông báo cho người nhận khi có mail mới (nếu họ đang online)
+notify-on-receive: true
+
+# Thông báo mail chưa đọc khi player login
+notify-on-login: true
+
+# Chu kỳ dọn dẹp mail hết hạn (phút)
+cleanup-interval-minutes: 60
+
+# Format ngày giờ hiển thị
+date-format: "dd/MM/yyyy HH:mm"
+
+# Giới hạn số mail trong inbox
+# -1 = unlimited
+max-inbox-size: 100
+
+# Khi inbox đầy, tự động xóa mail cũ nhất để nhường chỗ cho mail mới
+auto-delete-oldest-when-full: true
+
+# Cho phép gửi mail cho chính mình
+allow-self-mail: false

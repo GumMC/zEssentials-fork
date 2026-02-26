@@ -1000,6 +1000,42 @@ public enum Message {
     DESCRIPTION_VOTEFLY_REMOVE("Remove vote fly time from a player"),
     DESCRIPTION_VOTEFLY_SET("Set vote fly time for a player"),
     DESCRIPTION_VOTEFLY_GET("Display player vote fly info"),
+
+    // Inbox Module
+    DESCRIPTION_INBOX("Manage your inbox"),
+    DESCRIPTION_INBOX_READ("Read your inbox mails"),
+    DESCRIPTION_INBOX_SEND("Send a mail to a player"),
+    DESCRIPTION_INBOX_SENDTEMP("Send a temporary mail to a player"),
+    DESCRIPTION_INBOX_SENDALL("Send a mail to all players"),
+    DESCRIPTION_INBOX_CLEAR("Clear your inbox"),
+
+    COMMAND_INBOX_INFORMATION_MULTI_LINE_HEADER(MessageType.WITHOUT_PREFIX,
+            "",
+            "#5CFF7A&lYour inbox&r &8(#B0B0B0%count%&8 total, #FFD65C%unread%&8 unread) &8- &7(Page #B0B0B0%page%&8/#B0B0B0%maxPage%&8)"
+    ),
+    COMMAND_INBOX_INFORMATION_MULTI_LINE_CONTENT(MessageType.WITHOUT_PREFIX,
+            " &8• &7[#B0B0B0%date%&7] #B8FFD0%sender%&8: &f%message%"
+    ),
+    COMMAND_INBOX_INFORMATION_MULTI_LINE_CONTENT_UNREAD(MessageType.WITHOUT_PREFIX,
+            " &a[NEW] &8• &7[#B0B0B0%date%&7] #B8FFD0%sender%&8: &f%message%"
+    ),
+    COMMAND_INBOX_INFORMATION_MULTI_LINE_FOOTER(MessageType.WITHOUT_PREFIX, ""),
+    COMMAND_INBOX_EMPTY("#FF5C5C&l(!)&r #FF5C5CYour inbox is empty."),
+    COMMAND_INBOX_SEND_SUCCESS("#5CFF7A&l(!)&r #5CFF7AMail sent to #B8FFD0%player%#5CFF7A."),
+    COMMAND_INBOX_SEND_NOTIFY("#5CFF7A&l(!)&r #5CFF7AYou have received a new mail from #B8FFD0%sender%#5CFF7A."),
+    COMMAND_INBOX_SEND_RATE_LIMIT("#FF5C5C&l(!)&r #FF5C5CPlease wait #FFBDBD%time% #FF5C5Cseconds before sending another mail."),
+    COMMAND_INBOX_SEND_TOO_LONG("#FF5C5C&l(!)&r #FF5C5CMessage too long! Max #FFBDBD%max% #FF5C5Ccharacters."),
+    COMMAND_INBOX_SEND_IGNORED("#FF5C5C&l(!)&r #FF5C5CYou cannot send a mail to this player, they are ignoring you."),
+    COMMAND_INBOX_SENDALL_START("#B0B0B0&l(!)&r #B0B0B0Sending mail to all players..."),
+    COMMAND_INBOX_SENDALL_COMPLETE("#5CFF7A&l(!)&r #5CFF7AMail sent to #B8FFD0%count% #5CFF7Aplayers."),
+    COMMAND_INBOX_CLEAR_SUCCESS("#5CFF7A&l(!)&r #5CFF7AYour inbox has been cleared."),
+    COMMAND_INBOX_LOGIN_NOTIFY("#5CFF7A&l(!)&r #5CFF7AYou have #B8FFD0%count% #5CFF7Aunread mail(s). Use #B8FFD0/inbox read #5CFF7Ato view."),
+    COMMAND_INBOX_TEMP_DISABLED("#FF5C5C&l(!)&r #FF5C5CTemporary mails are disabled on this server."),
+    COMMAND_INBOX_INVALID_DURATION("#FF5C5C&l(!)&r #FF5C5CInvalid duration format: #FFBDBD%time%#FF5C5C. Use formats like 1h, 7d, 24h."),
+    COMMAND_INBOX_SELF_MAIL("#FF5C5C&l(!)&r #FF5C5CYou cannot send mail to yourself."),
+    COMMAND_INBOX_FULL("#FF5C5C&l(!)&r #FF5C5C#B8FFD0%player%#FF5C5C's inbox is full. They cannot receive more mails."),
+    COMMAND_INBOX_INVALID_PAGE("#FF5C5C&l(!)&r #FF5C5CInvalid page number."),
+    COMMAND_INBOX_CLEAR_OTHER_SUCCESS("#5CFF7A&l(!)&r #5CFF7AYou have cleared the inbox of &f%player%#5CFF7A."),
     ;
 
     private EssentialsPlugin plugin;

@@ -30,5 +30,6 @@ public class SpigotUtils extends BaseServer {
     @Override
     public void sendPrivateMessage(User user, PrivateMessage privateMessage, Message message, String content) {
         message(user, message, "%target%", privateMessage.username(), "%message%", content);
+        playPrivateMessageSound(user.getPlayer(), message);
     }
 }

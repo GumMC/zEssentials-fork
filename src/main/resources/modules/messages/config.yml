@@ -12,3 +12,16 @@
 ########################################################################################################################
 
 enable: true
+
+sound:
+  enable: true
+  receive:
+    enable: true
+    sound: ENTITY_EXPERIENCE_ORB_PICKUP
+    volume: 1.0
+    pitch: 1.0
+  send:
+    enable: true
+    sound: ENTITY_PLAYER_LEVELUP
+    volume: 0.5
+    pitch: 2.0

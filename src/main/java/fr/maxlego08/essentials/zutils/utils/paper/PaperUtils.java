@@ -34,5 +34,6 @@ public class PaperUtils extends BaseServer {
         PaperComponent paperComponent = (PaperComponent) this.componentMessage;
         var messageAsString = papi(getMessage(message.getMessageAsString(), "%target%", privateMessage.username()), user.getPlayer());
         user.getPlayer().sendMessage(paperComponent.getComponent(messageAsString, TagResolver.resolver("message", Tag.inserting(Component.text(content)))));
+        playPrivateMessageSound(user.getPlayer(), message);
     }
 }

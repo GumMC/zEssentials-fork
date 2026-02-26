@@ -18,9 +18,47 @@ import java.util.UUID;
 
 public class MessageModule extends ZModule {
 
+    private boolean soundEnable;
+    private boolean soundReceiveEnable;
+    private String soundReceiveType;
+    private float soundReceiveVolume;
+    private float soundReceivePitch;
+
+    private boolean soundSendEnable;
+    private String soundSendType;
+    private float soundSendVolume;
+    private float soundSendPitch;
+
     public MessageModule(ZEssentialsPlugin plugin) {
         super(plugin, "messages");
     }
+
+    @Override
+    public void loadConfiguration() {
+        super.loadConfiguration();
+        var configuration = this.getConfiguration();
+        this.soundEnable = configuration.getBoolean("sound.enable", true);
+        this.soundReceiveEnable = configuration.getBoolean("sound.receive.enable", true);
+        this.soundReceiveType = configuration.getString("sound.receive.sound", "ENTITY_EXPERIENCE_ORB_PICKUP");
+        this.soundReceiveVolume = (float) configuration.getDouble("sound.receive.volume", 1.0);
+        this.soundReceivePitch = (float) configuration.getDouble("sound.receive.pitch", 1.0);
+
+        this.soundSendEnable = configuration.getBoolean("sound.send.enable", true);
+        this.soundSendType = configuration.getString("sound.send.sound", "ENTITY_PLAYER_LEVELUP");
+        this.soundSendVolume = (float) configuration.getDouble("sound.send.volume", 0.5);
+        this.soundSendPitch = (float) configuration.getDouble("sound.send.pitch", 2.0);
+    }
+
+    public boolean isSoundEnable() { return soundEnable; }
+    public boolean isSoundReceiveEnable() { return soundReceiveEnable; }
+    public String getSoundReceiveType() { return soundReceiveType; }
+    public float getSoundReceiveVolume() { return soundReceiveVolume; }
+    public float getSoundReceivePitch() { return soundReceivePitch; }
+
+    public boolean isSoundSendEnable() { return soundSendEnable; }
+    public String getSoundSendType() { return soundSendType; }
+    public float getSoundSendVolume() { return soundSendVolume; }
+    public float getSoundSendPitch() { return soundSendPitch; }
 
     protected boolean isVanished(UUID uuid, Map<Option, Boolean> options) {
         Player player = Bukkit.getPlayer(uuid);

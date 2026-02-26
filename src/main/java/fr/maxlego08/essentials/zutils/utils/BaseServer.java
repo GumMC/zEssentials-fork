@@ -12,6 +12,9 @@ import fr.maxlego08.essentials.api.utils.EssentialsUtils;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
+import fr.maxlego08.essentials.module.modules.MessageModule;
 
 import java.lang.reflect.Constructor;
 import java.util.Map;
@@ -101,5 +104,21 @@ public abstract class BaseServer extends ZUtils implements EssentialsUtils {
         User user = this.plugin.getUser(uniqueId);
         if (user == null) return;
         user.setCooldownSilent(cooldownName, expiredAt);
+    }
+
+    protected void playPrivateMessageSound(Player player, Message message) {
+        if (player == null) return;
+        MessageModule module = this.plugin.getModuleManager().getModule(MessageModule.class);
+        if (module != null && module.isEnable() && module.isSoundEnable()) {
+            try {
+                if (message == Message.COMMAND_MESSAGE_ME && module.isSoundSendEnable()) {
+                    player.playSound(player.getLocation(), Sound.valueOf(module.getSoundSendType().toUpperCase()), module.getSoundSendVolume(), module.getSoundSendPitch());
+                } else if (message == Message.COMMAND_MESSAGE_OTHER && module.isSoundReceiveEnable()) {
+                    player.playSound(player.getLocation(), Sound.valueOf(module.getSoundReceiveType().toUpperCase()), module.getSoundReceiveVolume(), module.getSoundReceivePitch());
+                }
+            } catch (Exception ignored) {
+                // Ignore if sound name is invalid
+            }
+        }
     }
 }

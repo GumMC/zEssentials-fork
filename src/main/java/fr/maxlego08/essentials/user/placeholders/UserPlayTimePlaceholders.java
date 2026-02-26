@@ -25,6 +25,14 @@ public class UserPlayTimePlaceholders extends ZUtils implements PlaceholderRegis
             return TimerBuilder.getStringTime(user == null ? 0 : (user.getPlayTime() * 1000));
         }, "Returns the player’s playing time formatted");
 
+        placeholder.register("user_playtime_hours", player -> {
+            User user = iStorage.getUser(player.getUniqueId());
+            if (user == null) return "0";
+            long playtimeSeconds = user.getPlayTime();
+            long hours = playtimeSeconds / 3600;
+            return String.valueOf(hours);
+        }, "Returns the player's total playing time in hours (rounded)");
+
         placeholder.register("user_current_session_playtime", player -> {
             User user = iStorage.getUser(player.getUniqueId());
             return user == null ? "0" : String.valueOf((System.currentTimeMillis() - user.getCurrentSessionPlayTime()) / 1000);

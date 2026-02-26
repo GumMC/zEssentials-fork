@@ -25,7 +25,7 @@ public class CommandInboxSend extends VCommand {
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
         String userName = this.argAsString(0);
-        String message = getArgs(1);
+        String message = getArgs(2);
 
         InboxModule inboxModule = plugin.getModuleManager().getModule(InboxModule.class);
         fetchUniqueId(userName, uuid -> inboxModule.sendMail(this.sender, uuid, userName, message));

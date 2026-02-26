@@ -34,6 +34,11 @@ notify-on-receive: true
 # Thông báo mail chưa đọc khi player login
 notify-on-login: true
 
+# Delay thông báo inbox sau khi player join (ticks)
+# 20 ticks = 1 giây
+# Khuyến nghị: 40-60 ticks (2-3 giây) để gửi sau join motd, tránh lag
+notify-on-login-delay-ticks: 40
+
 # Chu kỳ dọn dẹp mail hết hạn (phút)
 cleanup-interval-minutes: 60
 

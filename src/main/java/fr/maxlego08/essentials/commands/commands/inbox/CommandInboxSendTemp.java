@@ -28,7 +28,7 @@ public class CommandInboxSendTemp extends VCommand {
     protected CommandResultType perform(EssentialsPlugin plugin) {
         String userName = this.argAsString(0);
         String duration = this.argAsString(1);
-        String message = getArgs(2);
+        String message = getArgs(3);
 
         InboxModule inboxModule = plugin.getModuleManager().getModule(InboxModule.class);
         fetchUniqueId(userName, uuid -> inboxModule.sendTempMail(this.sender, uuid, userName, duration, message));

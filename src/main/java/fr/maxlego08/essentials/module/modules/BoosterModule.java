@@ -203,20 +203,29 @@ public class BoosterModule extends ZModule {
         long minutes = (totalSeconds % 3600) / 60;
         long seconds = totalSeconds % 60;
 
-        if ("long".equals(timeFormat)) {
-            List<String> parts = new ArrayList<>();
-            if (days > 0) parts.add(days + (days == 1 ? " day" : " days"));
-            if (hours > 0) parts.add(hours + (hours == 1 ? " hour" : " hours"));
-            if (minutes > 0) parts.add(minutes + (minutes == 1 ? " minute" : " minutes"));
-            if (seconds > 0 || parts.isEmpty()) parts.add(seconds + (seconds == 1 ? " second" : " seconds"));
-            return String.join(" ", parts);
-        } else {
-            List<String> parts = new ArrayList<>();
-            if (days > 0) parts.add(days + "d");
-            if (hours > 0) parts.add(hours + "h");
-            if (minutes > 0) parts.add(minutes + "m");
-            if (seconds > 0 || parts.isEmpty()) parts.add(seconds + "s");
-            return String.join(" ", parts);
-        }
+        return switch (timeFormat) {
+            case "long" -> {
+                List<String> parts = new ArrayList<>();
+                if (days > 0) parts.add(days + (days == 1 ? " day" : " days"));
+                if (hours > 0) parts.add(hours + (hours == 1 ? " hour" : " hours"));
+                if (minutes > 0) parts.add(minutes + (minutes == 1 ? " minute" : " minutes"));
+                if (seconds > 0 || parts.isEmpty()) parts.add(seconds + (seconds == 1 ? " second" : " seconds"));
+                yield String.join(" ", parts);
+            }
+            case "hh:mm:ss" -> {
+                // Format as HH:MM:SS (e.g., 01:25:35), includes days if > 0
+                long totalHours = days * 24 + hours;
+                yield String.format("%02d:%02d:%02d", totalHours, minutes, seconds);
+            }
+            default -> {
+                // "short" format: 5d 2h 30m 10s
+                List<String> parts = new ArrayList<>();
+                if (days > 0) parts.add(days + "d");
+                if (hours > 0) parts.add(hours + "h");
+                if (minutes > 0) parts.add(minutes + "m");
+                if (seconds > 0 || parts.isEmpty()) parts.add(seconds + "s");
+                yield String.join(" ", parts);
+            }
+        };
     }
 }

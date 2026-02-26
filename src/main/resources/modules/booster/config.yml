@@ -19,4 +19,5 @@ enable: true
 # Time format for remaining duration
 # "short" = 5d 2h 30m 10s
 # "long" = 5 days 2 hours 30 minutes 10 seconds
+# "hh:mm:ss" = 01:25:35
 time-format: "short"

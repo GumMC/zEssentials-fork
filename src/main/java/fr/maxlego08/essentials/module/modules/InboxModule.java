@@ -33,6 +33,7 @@ public class InboxModule extends ZModule {
     private boolean enableTempMail;
     private boolean notifyOnReceive;
     private boolean notifyOnLogin;
+    private int notifyOnLoginDelayTicks;
     private int cleanupIntervalMinutes;
     private String dateFormat;
     private int maxInboxSize;
@@ -63,6 +64,7 @@ public class InboxModule extends ZModule {
         this.enableTempMail = configuration.getBoolean("enable-temp-mail", true);
         this.notifyOnReceive = configuration.getBoolean("notify-on-receive", true);
         this.notifyOnLogin = configuration.getBoolean("notify-on-login", true);
+        this.notifyOnLoginDelayTicks = configuration.getInt("notify-on-login-delay-ticks", 40);
         this.cleanupIntervalMinutes = configuration.getInt("cleanup-interval-minutes", 60);
         this.dateFormat = configuration.getString("date-format", "dd/MM/yyyy HH:mm");
         this.maxInboxSize = configuration.getInt("max-inbox-size", 100);
@@ -340,12 +342,17 @@ public class InboxModule extends ZModule {
         InboxRepository repo = getRepository();
         if (repo == null) return;
 
-        this.plugin.getScheduler().runAsync(wrappedTask -> {
-            long unreadCount = repo.countUnread(player.getUniqueId());
-            if (unreadCount > 0) {
-                message(player, Message.COMMAND_INBOX_LOGIN_NOTIFY, "%count%", unreadCount);
-            }
-        });
+        // Delay thông báo để gửi sau join motd, tránh lag
+        this.plugin.getScheduler().runLater(() -> {
+            if (!player.isOnline()) return;
+
+            this.plugin.getScheduler().runAsync(asyncTask -> {
+                long unreadCount = repo.countUnread(player.getUniqueId());
+                if (unreadCount > 0) {
+                    message(player, Message.COMMAND_INBOX_LOGIN_NOTIFY, "%count%", unreadCount);
+                }
+            });
+        }, this.notifyOnLoginDelayTicks);
     }
 
     private void cleanupExpiredMails() {

@@ -22,7 +22,7 @@ public class CommandInboxSendAll extends VCommand {
 
     @Override
     protected CommandResultType perform(EssentialsPlugin plugin) {
-        String message = getArgs(0);
+        String message = getArgs(1);
 
         InboxModule inboxModule = plugin.getModuleManager().getModule(InboxModule.class);
         inboxModule.sendAllMail(this.sender, message);

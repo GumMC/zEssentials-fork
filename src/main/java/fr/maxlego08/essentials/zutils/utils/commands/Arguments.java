@@ -168,10 +168,7 @@ public abstract class Arguments extends ZUtils {
      */
     protected Player argAsPlayer(int index, Player defaultValue) {
         try {
-            String name = argAsString(index);
-            if (name == null) return defaultValue;
-            Player found = Bukkit.getPlayer(name);
-            return found != null ? found : defaultValue;
+            return Bukkit.getPlayer(argAsString(index));
         } catch (Exception ignored) {
             return defaultValue;
         }

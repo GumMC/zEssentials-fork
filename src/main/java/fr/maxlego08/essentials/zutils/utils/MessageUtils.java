@@ -26,6 +26,8 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
     protected final ComponentMessage componentMessage = ComponentMessageHelper.componentMessage;
 
+    private static final Pattern LEGACY_HEX_PATTERN = Pattern.compile("§x§([0-9a-fA-F])§([0-9a-fA-F])§([0-9a-fA-F])§([0-9a-fA-F])§([0-9a-fA-F])§([0-9a-fA-F])");
+
     public static String getString(String message, Object[] newArgs) {
         if (newArgs.length % 2 != 0) {
             throw new IllegalArgumentException("Number of invalid arguments. Arguments must be in pairs.");
@@ -125,12 +127,16 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
     private void handleArg(Object arg, List<Object> modifiedArgs) {
         if (arg instanceof Player player) {
-            addPlayerDetails(modifiedArgs, player.getName(), player.getDisplayName());
+            addPlayerDetails(modifiedArgs, player.getName(), convertLegacyHexColors(player.getDisplayName()));
         } else if (arg instanceof User user) {
-            addPlayerDetails(modifiedArgs, user.getName(), user.getPlayer().getDisplayName());
+            addPlayerDetails(modifiedArgs, user.getName(), convertLegacyHexColors(user.getPlayer().getDisplayName()));
         } else {
             modifiedArgs.add(arg);
         }
+    }
+
+    private static String convertLegacyHexColors(String text) {
+        return LEGACY_HEX_PATTERN.matcher(text).replaceAll("<#$1$2$3$4$5$6>");
     }
 
     private void addPlayerDetails(List<Object> modifiedArgs, String name, String displayName) {

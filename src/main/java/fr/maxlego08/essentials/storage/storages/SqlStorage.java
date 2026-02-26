@@ -195,6 +195,21 @@ public class SqlStorage extends StorageHelper implements IStorage {
     @Override
     public void onDisable() {
 
+        // Flush pending batches synchronously before disconnect (scheduler may be stopped)
+        var commands = this.cache.get(CommandDTO.class);
+        var messages = this.cache.get(ChatMessageDTO.class);
+        var privateMessages = this.cache.get(PrivateMessageDTO.class);
+        var transactions = this.cache.get(EconomyTransactionDTO.class);
+        var flights = this.cache.get(FlyDTO.class);
+
+        with(CommandsRepository.class).insertCommands(commands);
+        with(ChatMessagesRepository.class).insertMessages(messages);
+        with(PrivateMessagesRepository.class).insertMessages(privateMessages);
+        with(EconomyTransactionsRepository.class).insertTransactions(transactions);
+        with(UserRepository.class).upsertFly(flights);
+
+        this.cache.clearAll();
+
         this.connection.disconnect();
     }
 
@@ -298,6 +313,14 @@ public class SqlStorage extends StorageHelper implements IStorage {
 
     @Override
     public void onPlayerQuit(UUID uniqueId) {
+        // Flush any pending fly seconds for this player before removing them
+        List<FlyDTO> pendingFlights = this.cache.get(FlyDTO.class).stream()
+                .filter(e -> e.unique_id().equals(uniqueId))
+                .toList();
+        if (!pendingFlights.isEmpty()) {
+            this.cache.get(FlyDTO.class).removeIf(e -> e.unique_id().equals(uniqueId));
+            async(() -> pendingFlights.forEach(e -> with(UserRepository.class).updateFly(e.unique_id(), e.fly_seconds())));
+        }
         this.users.remove(uniqueId);
     }
 

@@ -94,7 +94,7 @@ import fr.maxlego08.essentials.server.SpigotServer;
 import fr.maxlego08.essentials.storage.ConfigStorage;
 import fr.maxlego08.essentials.storage.ZStorageManager;
 import fr.maxlego08.essentials.storage.adapter.UserTypeAdapter;
-import fr.maxlego08.essentials.task.FlyTask;
+import fr.maxlego08.essentials.task.VoteFlyTask;
 import fr.maxlego08.essentials.user.ZUser;
 import fr.maxlego08.essentials.user.placeholders.ArmorPlaceholders;
 import fr.maxlego08.essentials.user.placeholders.EconomyBaltopPlaceholders;
@@ -284,7 +284,7 @@ public final class ZEssentialsPlugin extends ZPlugin implements EssentialsPlugin
         this.generateDocs();
 
         if (this.configuration.isTempFlyTask()) {
-            new FlyTask(this);
+            new VoteFlyTask(this);
         }
     }
 

@@ -311,7 +311,12 @@ public enum Permission {
     ESSENTIALS_ITEMFRAME,
     ESSENTIALS_SILENT_DEATH("Allows you to die silently without a death message"),
     ESSENTIALS_CHAT_INV("Allows you to display your full inventory in chat using [inv]"),
-    ESSENTIALS_SHOW_INV("Allows you to view another player's inventory snapshot via /showinv");
+    ESSENTIALS_SHOW_INV("Allows you to view another player's inventory snapshot via /showinv"),
+    ESSENTIALS_VOTEFLY,
+    ESSENTIALS_VOTEFLY_ADD,
+    ESSENTIALS_VOTEFLY_REMOVE,
+    ESSENTIALS_VOTEFLY_SET,
+    ESSENTIALS_VOTEFLY_GET;
 
     private final String description;
     private final String[] args;

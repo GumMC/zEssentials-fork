@@ -117,6 +117,7 @@ import fr.maxlego08.essentials.commands.commands.weather.CommandPlayerTime;
 import fr.maxlego08.essentials.commands.commands.weather.CommandPlayerWeather;
 import fr.maxlego08.essentials.commands.commands.weather.CommandSun;
 import fr.maxlego08.essentials.commands.commands.worldedit.CommandWorldEdit;
+import fr.maxlego08.essentials.commands.commands.votefly.CommandVoteFly;
 import fr.maxlego08.essentials.zutils.utils.commands.VCommand;
 
 import java.util.ArrayList;
@@ -289,6 +290,7 @@ public class CommandLoader {
         register("pub", CommandPub.class);
         register("step", CommandStep.class);
         register("itemframe", CommandItemFrame.class, "iframe");
+        register("votefly", CommandVoteFly.class, "vfly");
 
         for (RegisterCommand registerCommand : this.commands) {
             try {

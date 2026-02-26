@@ -27,6 +27,7 @@ import fr.maxlego08.essentials.module.modules.scoreboard.ScoreboardModule;
 import fr.maxlego08.essentials.module.modules.vault.VaultModule;
 import fr.maxlego08.essentials.module.modules.worldedit.WorldeditModule;
 import fr.maxlego08.essentials.module.modules.InboxModule;
+import fr.maxlego08.essentials.module.modules.BoosterModule;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -82,6 +83,7 @@ public class ZModuleManager implements ModuleManager {
         this.modules.put(AFKModule.class, new AFKModule(this.plugin));
         this.modules.put(AutoMessageModule.class, new AutoMessageModule(this.plugin));
         this.modules.put(InboxModule.class, new InboxModule(this.plugin));
+        this.modules.put(BoosterModule.class, new BoosterModule(this.plugin));
 
         this.loadConfigurations();
 

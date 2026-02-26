@@ -47,6 +47,7 @@ import fr.maxlego08.essentials.commands.commands.kits.CommandKitGive;
 import fr.maxlego08.essentials.commands.commands.kits.CommandShowKit;
 import fr.maxlego08.essentials.commands.commands.mail.CommandMail;
 import fr.maxlego08.essentials.commands.commands.inbox.CommandInbox;
+import fr.maxlego08.essentials.commands.commands.booster.CommandBooster;
 import fr.maxlego08.essentials.commands.commands.messages.CommandMessage;
 import fr.maxlego08.essentials.commands.commands.messages.CommandMessageToggle;
 import fr.maxlego08.essentials.commands.commands.messages.CommandReply;
@@ -293,6 +294,7 @@ public class CommandLoader {
         register("itemframe", CommandItemFrame.class, "iframe");
         register("votefly", CommandVoteFly.class, "vfly");
         register("inbox", CommandInbox.class);
+        register("booster", CommandBooster.class);
 
         for (RegisterCommand registerCommand : this.commands) {
             try {

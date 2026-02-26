@@ -326,7 +326,10 @@ public enum Permission {
     ESSENTIALS_INBOX_SENDALL,
     ESSENTIALS_INBOX_CLEAR,
     ESSENTIALS_INBOX_CLEAR_OTHER("Allows to clear another player's inbox"),
-    ESSENTIALS_INBOX_BYPASS_RATELIMIT("Allows to bypass rate limit for sending mails");
+    ESSENTIALS_INBOX_BYPASS_RATELIMIT("Allows to bypass rate limit for sending mails"),
+
+    // Booster Module
+    ESSENTIALS_BOOSTER;
 
     private final String description;
     private final String[] args;

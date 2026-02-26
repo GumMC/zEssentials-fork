@@ -1036,6 +1036,22 @@ public enum Message {
     COMMAND_INBOX_FULL("#FF5C5C&l(!)&r #FF5C5C#B8FFD0%player%#FF5C5C's inbox is full. They cannot receive more mails."),
     COMMAND_INBOX_INVALID_PAGE("#FF5C5C&l(!)&r #FF5C5CInvalid page number."),
     COMMAND_INBOX_CLEAR_OTHER_SUCCESS("#5CFF7A&l(!)&r #5CFF7AYou have cleared the inbox of &f%player%#5CFF7A."),
+
+    // Booster Module
+    DESCRIPTION_BOOSTER("View your active boosters"),
+    COMMAND_BOOSTER_INFORMATION_MULTI_LINE_HEADER(MessageType.WITHOUT_PREFIX,
+            "",
+            "#5CFF7A&lYour boosters&r &8(#B0B0B0%count%&8 active)"
+    ),
+    COMMAND_BOOSTER_INFORMATION_MULTI_LINE_CONTENT(MessageType.WITHOUT_PREFIX,
+            " &8• #B8FFD0%name% &8- &7%remaining%"
+    ),
+    COMMAND_BOOSTER_INFORMATION_MULTI_LINE_SEPARATOR(MessageType.WITHOUT_PREFIX,
+            " &8&m─────────────────────────"
+    ),
+    COMMAND_BOOSTER_INFORMATION_MULTI_LINE_FOOTER(MessageType.WITHOUT_PREFIX, ""),
+    COMMAND_BOOSTER_EMPTY("#FF5C5C&l(!)&r #FF5C5CYou have no active boosters."),
+    COMMAND_BOOSTER_PLUGIN_NOT_FOUND("#FF5C5C&l(!)&r #FF5C5CAxBoosters plugin is not loaded."),
     ;
 
     private EssentialsPlugin plugin;

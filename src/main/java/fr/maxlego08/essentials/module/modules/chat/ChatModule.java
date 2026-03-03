@@ -2,6 +2,7 @@ package fr.maxlego08.essentials.module.modules.chat;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.cache.ExpiringCache;
+import fr.maxlego08.essentials.api.chat.BadWordsConfig;
 import fr.maxlego08.essentials.api.chat.ChatCooldown;
 import fr.maxlego08.essentials.api.chat.ChatDisplay;
 import fr.maxlego08.essentials.api.chat.ChatDisplayException;
@@ -62,6 +63,7 @@ public class ChatModule extends ZModule {
     private final List<ChatPlaceholder> chatPlaceholders = new ArrayList<>();
     private final List<CustomRules> customRules = new ArrayList<>();
     private ChatDisplay pingDisplay;
+    private BadWordsFilter badWordsFilter;
     private String alphanumericRegex;
     private String linkRegex;
     private String itemaddersFontRegex;
@@ -175,6 +177,38 @@ public class ChatModule extends ZModule {
         this.forbiddenUnicode = new ForbiddenUnicode(forbiddenChars, cancelOnFail);
 
         loadIconMapping();
+        loadBadWords();
+    }
+
+    private void loadBadWords() {
+        this.badWordsFilter = null;
+
+        this.plugin.saveOrUpdateConfiguration("modules/chat/badwords.yml", false);
+        File badWordsFile = new File(getFolder(), "badwords.yml");
+        YamlConfiguration badWordsConfig = YamlConfiguration.loadConfiguration(badWordsFile);
+
+        boolean enabled = badWordsConfig.getBoolean("enabled", false);
+        if (!enabled) return;
+
+        String replacement = badWordsConfig.getString("replacement", "***");
+        int maxWarns = badWordsConfig.getInt("maxWarns", 3);
+        List<String> punishments = badWordsConfig.getStringList("punishments");
+        List<String> badWords = badWordsConfig.getStringList("words");
+        String bypassPermission = badWordsConfig.getString("bypass-permission", "");
+
+        BadWordsConfig config = new BadWordsConfig(
+                true,
+                replacement,
+                maxWarns,
+                punishments,
+                badWords,
+                bypassPermission
+        );
+
+        if (config.isEnabled()) {
+            this.badWordsFilter = new BadWordsFilter(this.plugin, config);
+            this.chatDisplays.add(this.badWordsFilter);
+        }
     }
 
     private void loadIconMapping() {
@@ -588,5 +622,9 @@ public class ChatModule extends ZModule {
 
     public Pattern getPubPattern() {
         return pubPattern;
+    }
+
+    public BadWordsFilter getBadWordsFilter() {
+        return badWordsFilter;
     }
 }

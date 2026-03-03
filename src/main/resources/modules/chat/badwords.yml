@@ -1,0 +1,196 @@
+########################################################################################################################
+#
+# ░█████╗░██╗░░██╗░█████╗░████████╗
+# ██╔══██╗██║░░██║██╔══██╗╚══██╔══╝
+# ██║░░╚═╝███████║███████║░░░██║░░░
+# ██║░░██╗██╔══██║██╔══██║░░░██║░░░
+# ╚█████╔╝██║░░██║██║░░██║░░░██║░░░
+# ░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░
+#
+# Documentation: https://zessentials.groupez.dev/modules/chat
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# BAD WORDS FILTER CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# HOW IT WORKS:
+# - Uses word boundaries (\b) to prevent false positives
+# - "sex" will match "sex" but NOT "sexy" (no word boundary)
+# - Case insensitive (matches SEX, Sex, sex)
+# - Words are processed as-is, no special config needed
+#
+# WORD BOUNDARY EXAMPLES:
+#   "fuck"      → matches "fuck", "FUCK", "Fuck"
+#   "ass"       → matches "ass", but NOT "assassin" (no boundary)
+#   "sex"       → matches "sex", but NOT "sexy", "sexual"
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Enable bad words filtering
+enabled: true
+
+# Replacement text for bad words
+replacement: "***"
+
+# Maximum warns before executing punishments
+# Set to -1 to disable the warn system
+maxWarns: 3
+
+# Commands to execute when max warns is reached
+# Use %player% as placeholder for player name
+punishments:
+  - "warn -s %player% BadWords"
+
+# Permission to bypass bad words filtering
+# Leave empty to disable bypass
+bypass-permission: "essentials.chat.bypass.badwords"
+
+# List of bad words (exact matches - case insensitive)
+# Word boundaries (\b) are automatically added to prevent false positives
+words:
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # ENGLISH - Core words
+  # ═══════════════════════════════════════════════════════════════════════════════
+  - "fuck"
+  - "shit"
+  - "ass"
+  - "bitch"
+  - "damn"
+  - "cunt"
+  - "whore"
+  - "dick"
+  - "cock"
+  - "pussy"
+  - "bastard"
+  - "slut"
+  - "fag"
+  - "faggot"
+  - "nigger"
+  - "nigga"
+
+  # English leetspeak
+  - "fuk"
+  - "fukk"
+  - "fuking"
+  - "fukin"
+  - "fack"
+  - "phuck"
+  - "phuk"
+  - "sh1t"
+  - "sh!t"
+  - "shyt"
+  - "shet"
+  - "b1tch"
+  - "b!tch"
+  - "bitxh"
+  - "bytch"
+  - "d1ck"
+  - "d!ck"
+  - "dik"
+  - "c0ck"
+  - "cok"
+  - "puss1"
+  - "puss"
+  - "pusy"
+  - "pussee"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # CZECH / ČEŠTINA
+  # ═══════════════════════════════════════════════════════════════════════════════
+  - "anal"
+  - "blbče"
+  - "blbec"
+  - "blboun"
+  - "bukvice"
+  - "buzerant"
+  - "buzna"
+  - "čuráci"
+  - "čůráci"
+  - "čurák"
+  - "čůrák"
+  - "čurina"
+  - "debil"
+  - "debile"
+  - "debilní"
+  - "hajzl"
+  - "hlupák"
+  - "hlupáku"
+  - "hnusák"
+  - "hnuse"
+  - "homouš"
+  - "hovada"
+  - "hovado"
+  - "hovnožrout"
+  - "chudák"
+  - "idiot"
+  - "idiote"
+  - "idioti"
+  - "imbecil"
+  - "jebat"
+  - "kokot"
+  - "kokote"
+  - "kokoti"
+  - "kokotina"
+  - "kokotiny"
+  - "kokotku"
+  - "kokůtek"
+  - "kokůtku"
+  - "kretén"
+  - "kreténe"
+  - "kripl"
+  - "krysa"
+  - "ksindl"
+  - "kurevnice"
+  - "kurevník"
+  - "kurevsky"
+  - "kurva"
+  - "kurvo"
+  - "kurvy"
+  - "loser"
+  - "lůza"
+  - "lůzr"
+  - "mrdka"
+  - "mrdky"
+  - "mrzák"
+  - "odpad"
+  - "odpadek"
+  - "omezenec"
+  - "parchant"
+  - "pico"
+  - "piča"
+  - "píča"
+  - "píčo"
+  - "píčovina"
+  - "píčus"
+  - "podrazák"
+  - "pojebany"
+  - "pokrytec"
+  - "prase"
+  - "retard"
+  - "retarde"
+  - "sex"
+  - "slizák"
+  - "srab"
+  - "srabe"
+  - "sráč"
+  - "sráči"
+  - "svině"
+  - "svině jedna"
+  - "šmejd"
+  - "špína"
+  - "špíno"
+  - "teplouš"
+  - "trapák"
+  - "trapko"
+  - "tupče"
+  - "tupoun"
+  - "ubožák"
+  - "vole"
+  - "volové"
+  - "vůl"
+  - "vyjebany"
+  - "zmetek"
+  - "zmrd"
+  - "zmrde"
+  - "zmrdi"
+  - "zoufalec"
+  - "zrádce"

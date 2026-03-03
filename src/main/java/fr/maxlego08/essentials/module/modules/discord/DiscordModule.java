@@ -1,6 +1,8 @@
 package fr.maxlego08.essentials.module.modules.discord;
 
 import fr.maxlego08.essentials.ZEssentialsPlugin;
+import fr.maxlego08.essentials.module.modules.chat.BadWordsFilter;
+import fr.maxlego08.essentials.module.modules.chat.ChatModule;
 import fr.maxlego08.essentials.api.discord.DiscordAccount;
 import fr.maxlego08.essentials.api.discord.DiscordAction;
 import fr.maxlego08.essentials.api.discord.DiscordConfiguration;
@@ -141,6 +143,14 @@ public class DiscordModule extends ZModule implements DiscordManager {
         String message = PlainTextComponentSerializer.plainText().serialize(event.message());
         message = message.replace("@", "@\u200B");
         var player = event.getPlayer();
+
+        // Filter bad words for Discord webhook
+        ChatModule chatModule = plugin.getModuleManager().getModule(ChatModule.class);
+        BadWordsFilter badWordsFilter = chatModule.getBadWordsFilter();
+        if (badWordsFilter != null) {
+            message = badWordsFilter.filter(message, player);
+        }
+
         sendDiscordMessage(player, player.getName(), player.getUniqueId(), message, this.chatConfiguration);
     }
 

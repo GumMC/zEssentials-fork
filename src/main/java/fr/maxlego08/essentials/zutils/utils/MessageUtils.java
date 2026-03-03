@@ -29,15 +29,37 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
     private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
 
+    // Pre-compiled pattern for hex colors - avoids recompiling every call
+    private static final Pattern HEX_COLOR_PATTERN = Pattern.compile("#[a-fA-F0-9]{6}");
+
     public static String getString(String message, Object[] newArgs) {
         if (newArgs.length % 2 != 0) {
             throw new IllegalArgumentException("Number of invalid arguments. Arguments must be in pairs.");
         }
-        for (int i = 0; i < newArgs.length; i += 2) {
-            if (newArgs[i] == null || newArgs[i + 1] == null) {
+        // Optimize: use StringBuilder for multiple replacements
+        if (newArgs.length > 2) {
+            StringBuilder sb = new StringBuilder(message);
+            for (int i = 0; i < newArgs.length; i += 2) {
+                Object key = newArgs[i];
+                Object value = newArgs[i + 1];
+                if (key == null || value == null) {
+                    throw new IllegalArgumentException("Keys and replacement values must not be null.");
+                }
+                String keyStr = key.toString();
+                String valueStr = value.toString();
+                int idx;
+                while ((idx = sb.indexOf(keyStr)) != -1) {
+                    sb.replace(idx, idx + keyStr.length(), valueStr);
+                }
+            }
+            return sb.toString();
+        }
+        // Fast path for single pair
+        if (newArgs.length == 2) {
+            if (newArgs[0] == null || newArgs[1] == null) {
                 throw new IllegalArgumentException("Keys and replacement values must not be null.");
             }
-            message = message.replace(newArgs[i].toString(), newArgs[i + 1].toString());
+            return message.replace(newArgs[0].toString(), newArgs[1].toString());
         }
         return message;
     }
@@ -171,13 +193,14 @@ public abstract class MessageUtils extends PlaceholderUtils {
     protected String color(String message) {
         if (message == null) return null;
         if (NMSUtils.isHexColor()) {
-            Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
-            Matcher matcher = pattern.matcher(message);
+            Matcher matcher = HEX_COLOR_PATTERN.matcher(message);
+            StringBuffer sb = new StringBuffer();
             while (matcher.find()) {
-                String color = message.substring(matcher.start(), matcher.end());
-                message = message.replace(color, String.valueOf(net.md_5.bungee.api.ChatColor.of(color)));
-                matcher = pattern.matcher(message);
+                String color = matcher.group();
+                matcher.appendReplacement(sb, String.valueOf(net.md_5.bungee.api.ChatColor.of(color)));
             }
+            matcher.appendTail(sb);
+            message = sb.toString();
         }
         return net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', message);
     }

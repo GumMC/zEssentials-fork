@@ -460,6 +460,8 @@ public class EconomyModule extends ZModule implements EconomyManager {
         for (UserBaltop userBaltop : pagination.paginate(userBaltops, baltopMessageAmount, page)) {
             message(player, Message.COMMAND_BALTOP, "%name%", userBaltop.getName(), "%uuid%", userBaltop.getUniqueId(), "%position%", userBaltop.getPosition(), "%amount%", format(economy, userBaltop.getAmount()));
         }
+
+        message(player, Message.COMMAND_BALTOP_FOOTER);
     }
 
     public Map<UUID, OfflineEconomy> getOfflinePlayers() {

@@ -829,8 +829,9 @@ public enum Message {
     SCOREBOARD_ENABLE("<success>You just enabled the scoreboard."),
 
     COMMAND_BALTOP_ERROR("<error>Can’t find the economy &f%name%<error>."),
-    COMMAND_BALTOP_HEADER(MessageType.WITHOUT_PREFIX, "#00f986ᴍᴏsᴛ ᴍᴏɴᴇʏ &8(&f%page%&8/&7%maxPage%&8) <click:run_command:'/baltop %previousPage%'>&f◀</click> &8- <click:run_command:'/baltop %nextPage%'>&f▶</click>"),
+    COMMAND_BALTOP_HEADER(MessageType.WITHOUT_PREFIX, "#00f986ᴍᴏsᴛ ᴍᴏɴᴇʏ &8(&f%page%&8/&7%maxPage%&8) <click:run_command:’/baltop %previousPage%’>&f◀</click> &8- <click:run_command:’/baltop %nextPage%’>&f▶</click>"),
     COMMAND_BALTOP(MessageType.WITHOUT_PREFIX, "#00f986#%position% &f%name%&8: %amount%"),
+    COMMAND_BALTOP_FOOTER(MessageType.WITHOUT_PREFIX, "&eType &6/baltop <number> &eto read the page"),
 
     CODE_NOT_FOUND("<red>Cannot find the code."),
 

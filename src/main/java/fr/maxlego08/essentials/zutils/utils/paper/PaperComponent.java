@@ -132,19 +132,26 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
         return Bukkit.createInventory(inventoryHolder, size, component);
     }
 
+    // Converts legacy hex §x§R§G§B§r§g§b → <#RRGGBB>
+    private static final Pattern LEGACY_HEX_PATTERN = Pattern.compile(
+            "\u00a7x\u00a7([0-9a-fA-F])\u00a7([0-9a-fA-F])\u00a7([0-9a-fA-F])\u00a7([0-9a-fA-F])\u00a7([0-9a-fA-F])\u00a7([0-9a-fA-F])"
+    );
+
+    // Converts bare #RRGGBB → <#RRGGBB>, skips already-wrapped ones
+    private static final Pattern BARE_HEX_PATTERN = Pattern.compile("(?<!<)(?<!:)#([a-fA-F0-9]{6})");
+
     private String colorMiniMessage(String message) {
-        StringBuilder stringBuilder = new StringBuilder();
+        // Step 1: §x§f§a§5§1§7§d → <#FA517D>  (must run before §-code replacements)
+        message = LEGACY_HEX_PATTERN.matcher(message).replaceAll("<#$1$2$3$4$5$6>");
 
-        Pattern pattern = Pattern.compile("(?<!<)(?<!:)#([a-fA-F0-9]{6})");
-        Matcher matcher = pattern.matcher(message);
+        // Step 2: bare #RRGGBB → <#RRGGBB>
+        StringBuilder sb = new StringBuilder();
+        Matcher matcher = BARE_HEX_PATTERN.matcher(message);
+        while (matcher.find()) matcher.appendReplacement(sb, "<$0>");
+        matcher.appendTail(sb);
+        String newMessage = sb.toString();
 
-        while (matcher.find()) {
-            matcher.appendReplacement(stringBuilder, "<$0>");
-        }
-        matcher.appendTail(stringBuilder);
-
-        String newMessage = stringBuilder.toString();
-
+        // Step 3: &/§ color codes → MiniMessage tags
         for (Map.Entry<String, String> entry : this.COLORS_MAPPINGS.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
@@ -156,6 +163,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
 
         return newMessage;
     }
+
 
     @Override
     public Component getComponent(String message) {
@@ -202,7 +210,7 @@ public class PaperComponent extends PlaceholderUtils implements AdventureCompone
     @Override
     public void sendMessage(CommandSender sender, String message) {
         if (sender instanceof Player player) {
-            sender.sendMessage(this.MINI_MESSAGE.deserialize(papi(colorMiniMessage(message), player)));
+            sender.sendMessage(this.MINI_MESSAGE.deserialize(colorMiniMessage(papi(message, player))));
         } else {
             Component component = this.cache.get(message, () -> this.MINI_MESSAGE.deserialize(colorMiniMessage(message)));
             sender.sendMessage(component);

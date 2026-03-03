@@ -78,9 +78,15 @@ public class InvDisplay extends ZUtils implements ChatDisplay {
                 .createHoverInventory(sender, contents, armor, offHand);
 
         // Build the display component
+        java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("HH:mm:ss");
+        String time = format.format(new java.util.Date());
         net.kyori.adventure.text.Component component = adventureComponent.getComponent(
-                this.result.replace("%player%", sender.getName()),
-                TagResolver.builder().build()
+                this.result.replace("%player%", sender.getName())
+                        .replace("%time%", time),
+                TagResolver.builder()
+                        .resolver(Placeholder.parsed("player", sender.getName()))
+                        .resolver(Placeholder.parsed("time", time))
+                        .build()
         );
         component = component.clickEvent(
                 net.kyori.adventure.text.event.ClickEvent.clickEvent(
@@ -103,8 +109,6 @@ public class InvDisplay extends ZUtils implements ChatDisplay {
     public boolean hasPermission(Permissible permissible) {
         return permissible.hasPermission(this.permission);
     }
-
-    // ── helpers ──────────────────────────────────────────────────────────────
 
     private boolean hasAnyContent(Player player) {
         for (ItemStack item : player.getInventory().getContents()) {

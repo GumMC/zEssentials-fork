@@ -38,7 +38,12 @@ public class ItemDisplay extends ZUtils implements ChatDisplay {
 
         int amount = itemStack.getAmount();
 
-        Component itemName = itemStack.displayName();
+        Component itemName;
+        if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName()) {
+            itemName = itemStack.getItemMeta().displayName();
+        } else {
+            itemName = Component.translatable(itemStack.translationKey());
+        }
 
         Matcher matcher = this.pattern.matcher(message);
         if (!matcher.find()) return message;

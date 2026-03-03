@@ -11,6 +11,7 @@ import fr.maxlego08.essentials.api.messages.messages.TitleMessage;
 import fr.maxlego08.essentials.api.user.User;
 import fr.maxlego08.essentials.api.utils.component.ComponentMessage;
 import fr.maxlego08.menu.common.utils.nms.NMSUtils;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -26,13 +27,12 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
     protected final ComponentMessage componentMessage = ComponentMessageHelper.componentMessage;
 
-    private static final Pattern LEGACY_HEX_PATTERN = Pattern.compile("§x§([0-9a-fA-F])§([0-9a-fA-F])§([0-9a-fA-F])§([0-9a-fA-F])§([0-9a-fA-F])§([0-9a-fA-F])");
+    private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
 
     public static String getString(String message, Object[] newArgs) {
         if (newArgs.length % 2 != 0) {
             throw new IllegalArgumentException("Number of invalid arguments. Arguments must be in pairs.");
         }
-
         for (int i = 0; i < newArgs.length; i += 2) {
             if (newArgs[i] == null || newArgs[i + 1] == null) {
                 throw new IllegalArgumentException("Keys and replacement values must not be null.");
@@ -71,30 +71,22 @@ public abstract class MessageUtils extends PlaceholderUtils {
     }
 
     protected void message(CommandSender sender, Message message, Object... args) {
-
         if (sender == null) return;
 
         if (sender instanceof Player player) {
             message.getMessages().forEach(essentialsMessage -> {
-
                 if (essentialsMessage instanceof ClassicMessage classicMessage) {
-
                     switch (essentialsMessage.messageType()) {
                         case TCHAT, WITHOUT_PREFIX -> sendTchatMessage(sender, classicMessage, args);
-                        case ACTION -> classicMessage.messages().forEach(currentMessage -> {
-                            this.componentMessage.sendActionBar(player, getMessage(currentMessage, args));
-                        });
-                        case CENTER -> classicMessage.messages().forEach(currentMessage -> {
-                            this.componentMessage.sendMessage(sender, getCenteredMessage(getMessage(currentMessage, args)));
-                        });
+                        case ACTION -> classicMessage.messages().forEach(currentMessage ->
+                                this.componentMessage.sendActionBar(player, getMessage(currentMessage, args)));
+                        case CENTER -> classicMessage.messages().forEach(currentMessage ->
+                                this.componentMessage.sendMessage(sender, getCenteredMessage(getMessage(currentMessage, args))));
                     }
-
                 } else if (essentialsMessage instanceof BossBarMessage bossBarMessage) {
-
                     EssentialsPlugin plugin = (EssentialsPlugin) Bukkit.getPluginManager().getPlugin("zEssentials");
                     this.componentMessage.sendBossBar(plugin, player, bossBarMessage);
                 } else if (essentialsMessage instanceof TitleMessage titleMessage) {
-
                     this.componentMessage.sendTitle(player, titleMessage);
                 }
             });
@@ -109,7 +101,8 @@ public abstract class MessageUtils extends PlaceholderUtils {
 
     private void sendTchatMessage(CommandSender sender, ClassicMessage classicMessage, Object... args) {
         boolean isWithoutPrefix = classicMessage.messageType() == MessageType.WITHOUT_PREFIX || classicMessage.messages().size() > 1;
-        classicMessage.messages().forEach(message -> this.componentMessage.sendMessage(sender, (isWithoutPrefix ? "" : Message.PREFIX.getMessageAsString()) + getMessage(message, args)));
+        classicMessage.messages().forEach(message ->
+                this.componentMessage.sendMessage(sender, (isWithoutPrefix ? "" : Message.PREFIX.getMessageAsString()) + getMessage(message, args)));
     }
 
     protected String getMessage(Message message, Object... args) {
@@ -117,26 +110,19 @@ public abstract class MessageUtils extends PlaceholderUtils {
     }
 
     protected String getMessage(String message, Object... args) {
-
         List<Object> modifiedArgs = new ArrayList<>();
         for (Object arg : args) handleArg(arg, modifiedArgs);
-        Object[] newArgs = modifiedArgs.toArray();
-
-        return getString(message, newArgs);
+        return getString(message, modifiedArgs.toArray());
     }
 
     private void handleArg(Object arg, List<Object> modifiedArgs) {
         if (arg instanceof Player player) {
-            addPlayerDetails(modifiedArgs, player.getName(), convertLegacyHexColors(player.getDisplayName()));
+            addPlayerDetails(modifiedArgs, player.getName(), MINI_MESSAGE.serialize(player.displayName()));
         } else if (arg instanceof User user) {
-            addPlayerDetails(modifiedArgs, user.getName(), convertLegacyHexColors(user.getPlayer().getDisplayName()));
+            addPlayerDetails(modifiedArgs, user.getName(), MINI_MESSAGE.serialize(user.getPlayer().displayName()));
         } else {
             modifiedArgs.add(arg);
         }
-    }
-
-    private static String convertLegacyHexColors(String text) {
-        return LEGACY_HEX_PATTERN.matcher(text).replaceAll("<#$1$2$3$4$5$6>");
     }
 
     private void addPlayerDetails(List<Object> modifiedArgs, String name, String displayName) {
@@ -151,7 +137,6 @@ public abstract class MessageUtils extends PlaceholderUtils {
         if (message == null || message.equals("")) return "";
 
         int CENTER_PX = 154;
-
         message = ChatColor.translateAlternateColorCodes('&', message);
 
         int messagePxSize = 0;

@@ -1,4 +1,4 @@
-########################################################################################################################
+﻿########################################################################################################################
 #
 #  ███████╗███████╗░██████╗░██████╗███████╗███╗░░██╗████████╗██╗░█████╗░██╗░░░░░░██████╗
 #  ╚════██║██╔════╝██╔════╝██╔════╝██╔════╝████╗░██║╚══██╔══╝██║██╔══██╗██║░░░░░██╔════╝
@@ -1014,6 +1014,8 @@ worldedit-refund-empty: " Geen blok om terug te betalen"
 worldedit-bossbar: "#45ff45Resterende tijd<dark_gray>: <white>%time%"
 worldedit-speed-error: "<error>Je hebt geen toestemming om blokken per seconde in te stellen."
 experience-granted: "<success>Je hebt zojuist <white>%amount% %type% <success>gegeven aan <white>%player%<success>."
+command-experience-grant-receiver: '#05e461&l+ %amount% XP'
+command-experience-take-receiver: '#FF5C5C&l- %amount% XP'
 experience-setted: "<success>Je hebt zojuist <white>%amount% %type% <success>ingesteld voor <white>%player%<success>."
 experience-queried: "<success><white>%player% <success>heeft <white>%amount% <success>%type%."
 experience-taken: "<success>Je hebt zojuist <white>%amount% %type% <success>afgenomen van <white>%player%<success>."

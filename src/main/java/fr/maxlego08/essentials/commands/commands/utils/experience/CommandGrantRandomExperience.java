@@ -37,6 +37,7 @@ public class CommandGrantRandomExperience extends VCommand {
             player.giveExp(value);
         }
         message(sender, Message.EXPERIENCE_GRANTED, player, "%amount%", value, "%type%", type);
+        message(player, Message.COMMAND_EXPERIENCE_GRANT_RECEIVER, "%amount%", value, "%type%", type);
         return CommandResultType.SUCCESS;
     }
 }

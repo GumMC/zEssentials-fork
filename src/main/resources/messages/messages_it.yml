@@ -1,4 +1,4 @@
-########################################################################################################################
+﻿########################################################################################################################
 #
 #  ███████╗███████╗░██████╗░██████╗███████╗███╗░░██╗████████╗██╗░█████╗░██╗░░░░░░██████╗
 #  ╚════██║██╔════╝██╔════╝██╔════╝██╔════╝████╗░██║╚══██╔══╝██║██╔══██╗██║░░░░░██╔════╝
@@ -993,6 +993,8 @@ description-vault-info: "Mostra informazioni sulla cassaforte di un giocatore"
 description-vault-show: "Mostra la cassaforte di un giocatore"
 description-worldedit-cancel: "Annulla la selezione attuale"
 experience-granted: "<success>Hai appena dato <white>%amount% %type% <success>a <white>%player%<success>."
+command-experience-grant-receiver: '#05e461&l+ %amount% XP'
+command-experience-take-receiver: '#FF5C5C&l- %amount% XP'
 experience-queried: "<success><white>%player% <success>ha <white>%amount% <success>%type%."
 experience-setted: "<success>Hai appena impostato <white>%amount% %type% <success>a <white>%player%<success>."
 experience-taken: "<success>Hai appena tolto <white>%amount% %type% <success>a <white>%player%<success>."

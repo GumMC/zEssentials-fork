@@ -1,4 +1,4 @@
-########################################################################################################################
+﻿########################################################################################################################
 #
 #  ███████╗███████╗░██████╗░██████╗███████╗███╗░░██╗████████╗██╗░█████╗░██╗░░░░░░██████╗
 #  ╚════██║██╔════╝██╔════╝██╔════╝██╔════╝████╗░██║╚══██╔══╝██║██╔══██╗██║░░░░░██╔════╝
@@ -1031,6 +1031,8 @@ description-vault-info: "Zeige Informationen über das Vault eines Spielers"
 description-vault-show: "Zeige das Vault eines Spielers"
 description-worldedit-cancel: "Breche die aktuelle Auswahl ab"
 experience-granted: "<success>Du hast <white>%amount% %type% <success>an <white>%player%<success> vergeben."
+command-experience-grant-receiver: '#05e461&l+ %amount% XP'
+command-experience-take-receiver: '#FF5C5C&l- %amount% XP'
 experience-queried: "<success><white>%player% <success>hat <white>%amount% <success>%type%."
 experience-setted: "<success>Du hast <white>%amount% %type% <success>für <white>%player%<success> gesetzt."
 experience-taken: "<success>Du hast <white>%amount% %type% <success>von <white>%player%<success> entfernt."

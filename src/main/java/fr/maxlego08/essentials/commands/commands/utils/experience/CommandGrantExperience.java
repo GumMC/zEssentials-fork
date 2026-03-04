@@ -33,6 +33,7 @@ public class CommandGrantExperience extends VCommand {
             player.giveExp(amount);
         }
         message(sender, Message.EXPERIENCE_GRANTED, player, "%amount%",amount, "%type%", type);
+        message(player, Message.COMMAND_EXPERIENCE_GRANT_RECEIVER, "%amount%", amount, "%type%", type);
         return CommandResultType.SUCCESS;
     }
 }

@@ -1,4 +1,4 @@
-########################################################################################################################
+﻿########################################################################################################################
 #
 #  ███████╗███████╗░██████╗░██████╗███████╗███╗░░██╗████████╗██╗░█████╗░██╗░░░░░░██████╗
 #  ╚════██║██╔════╝██╔════╝██╔════╝██╔════╝████╗░██║╚══██╔══╝██║██╔══██╗██║░░░░░██╔════╝
@@ -987,6 +987,8 @@ message-un-freeze:
 command-freeze-success: "&7Vous venez de geler le joueur &f%player%&7."
 command-un-freeze_success: "&7Vous venez de dégeler le joueur &f%player%&7."
 experience-granted: "<success>Vous venez de donner <white>%amount% %type% <success>à <white>%player%<success>."
+command-experience-grant-receiver: '#05e461&l+ %amount% XP'
+command-experience-take-receiver: '#FF5C5C&l- %amount% XP'
 experience-taken: "<success>Vous venez de retirer <white>%amount% %type% <success>à <white>%player%<success>."
 experience-setted: "<success>Vous venez de définir <white>%amount% %type% <success>pour <white>%player%<success>."
 experience-queried: "<success><white>%player% <success>a <white>%amount% <success>%type%."

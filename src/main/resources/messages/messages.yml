@@ -1018,6 +1018,8 @@ worldedit-bossbar: "#45ff45Time remaining<dark_gray>: <white>%time%"
 worldedit-speed-error: "<error>You have no permission to set blocks per second."
 worldedit-permission-error: "<error>You cannot use the worldedit here."
 experience-granted: "<success>You have just given <white>%amount% %type% <success>to <white>%player%<success>."
+command-experience-grant-receiver: '#05e461&l+ %amount% XP'
+command-experience-take-receiver: '#FF5C5C&l- %amount% XP'
 experience-taken: "<success>You have just take <white>%amount% %type% <success>to <white>%player%<success>."
 experience-setted: "<success>You have just set <white>%amount% %type% <success>to <white>%player%<success>."
 experience-queried: "<success><white>%player% <success>have <white>%amount% <success>%type%."

@@ -1,4 +1,4 @@
-########################################################################################################################
+﻿########################################################################################################################
 #
 #  ███████╗███████╗░██████╗░██████╗███████╗███╗░░██╗████████╗██╗░█████╗░██╗░░░░░░██████╗
 #  ╚════██║██╔════╝██╔════╝██╔════╝██╔════╝████╗░██║╚══██╔══╝██║██╔══██╗██║░░░░░██╔════╝
@@ -985,6 +985,8 @@ description-vault-info: "Muestra información sobre la bóveda de un jugador"
 description-vault-show: "Muestra la bóveda de un jugador"
 description-worldedit-cancel: "Cancela la selección actual"
 experience-granted: "<success>Acabas de dar <white>%amount% %type% <success>a <white>%player%<success>."
+command-experience-grant-receiver: '#05e461&l+ %amount% XP'
+command-experience-take-receiver: '#FF5C5C&l- %amount% XP'
 experience-queried: "<success><white>%player% <success>tiene <white>%amount% <success>%type%."
 experience-setted: "<success>Acabas de establecer <white>%amount% %type% <success>a <white>%player%<success>."
 experience-taken: "<success>Acabas de quitar <white>%amount% %type% <success>a <white>%player%<success>."

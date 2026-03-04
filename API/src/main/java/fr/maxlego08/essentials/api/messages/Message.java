@@ -948,7 +948,9 @@ public enum Message {
     WORLDEDIT_BOSSBAR("#45ff45Time remaining<dark_gray>: <white>%time%"),
 
     EXPERIENCE_TAKEN("<success>You have just taken <white>%amount% %type% <success>to <white>%player%<success>."),
+    COMMAND_EXPERIENCE_TAKE_RECEIVER("#FF5C5C&l- %amount% XP"),
     EXPERIENCE_GRANTED("<success>You have just given <white>%amount% %type% <success>to <white>%player%<success>."),
+    COMMAND_EXPERIENCE_GRANT_RECEIVER("#05e461&l+ %amount% XP"),
     EXPERIENCE_SETTED("<success>You have just set <white>%amount% %type% <success>to <white>%player%<success>."),
     EXPERIENCE_QUERIED("<success><white>%player% <success>have <white>%amount% <success>%type%."),
     DESCRIPTION_EXPERIENCE_QUERY("Query player experience"),

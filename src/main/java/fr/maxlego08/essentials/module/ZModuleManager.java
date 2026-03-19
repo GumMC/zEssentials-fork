@@ -3,6 +3,7 @@ package fr.maxlego08.essentials.module;
 import fr.maxlego08.essentials.ZEssentialsPlugin;
 import fr.maxlego08.essentials.api.modules.Module;
 import fr.maxlego08.essentials.api.modules.ModuleManager;
+import fr.maxlego08.essentials.module.modules.DeathMessageModule;
 import fr.maxlego08.essentials.module.modules.afk.AFKModule;
 import fr.maxlego08.essentials.module.modules.discord.DiscordModule;
 import fr.maxlego08.essentials.module.modules.economy.EconomyModule;
@@ -84,6 +85,9 @@ public class ZModuleManager implements ModuleManager {
         this.modules.put(AutoMessageModule.class, new AutoMessageModule(this.plugin));
         this.modules.put(InboxModule.class, new InboxModule(this.plugin));
         this.modules.put(BoosterModule.class, new BoosterModule(this.plugin));
+        if (plugin.isPaperVersion()) {
+            this.modules.put(DeathMessageModule.class, new DeathMessageModule(this.plugin));
+        }
 
         this.loadConfigurations();
 

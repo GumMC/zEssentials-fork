@@ -13,6 +13,7 @@ import fr.maxlego08.essentials.commands.commands.chat.CommandShowItem;
 import fr.maxlego08.essentials.commands.commands.chat.CommandShowInv;
 import fr.maxlego08.essentials.commands.commands.clearinventory.ClearInventoryCommand;
 import fr.maxlego08.essentials.commands.commands.cooldown.CommandCooldown;
+import fr.maxlego08.essentials.commands.commands.deathmessage.CommandDeathMessageToggle;
 import fr.maxlego08.essentials.commands.commands.discord.CommandLink;
 import fr.maxlego08.essentials.commands.commands.discord.CommandUnLink;
 import fr.maxlego08.essentials.commands.commands.economy.CommandBalanceTop;
@@ -295,6 +296,7 @@ public class CommandLoader {
         register("votefly", CommandVoteFly.class, "vfly");
         register("inbox", CommandInbox.class);
         register("booster", CommandBooster.class);
+        register("deathmessage", CommandDeathMessageToggle.class, "dm", "deathmsg");
 
         for (RegisterCommand registerCommand : this.commands) {
             try {

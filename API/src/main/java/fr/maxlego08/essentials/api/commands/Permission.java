@@ -328,8 +328,10 @@ public enum Permission {
     ESSENTIALS_INBOX_CLEAR_OTHER("Allows to clear another player's inbox"),
     ESSENTIALS_INBOX_BYPASS_RATELIMIT("Allows to bypass rate limit for sending mails"),
 
-    // Booster Module
-    ESSENTIALS_BOOSTER;
+    ESSENTIALS_BOOSTER,
+    ESSENTIALS_DEATH_MESSAGE_TELEPORT("Allows clicking death messages to teleport to death location"),
+    ESSENTIALS_DEATH_MESSAGE_TOGGLE("Allows toggling death messages visibility"),
+    ESSENTIALS_DEATH_MESSAGE_TOGGLE_OTHER("Allows toggling death messages for other players");
 
     private final String description;
     private final String[] args;

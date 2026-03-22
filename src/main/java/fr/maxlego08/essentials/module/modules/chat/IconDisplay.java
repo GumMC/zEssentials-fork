@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 public class IconDisplay implements ChatDisplay {
 
     private static final Pattern ICON_PATTERN = Pattern.compile(":([a-zA-Z0-9_]+):");
+    private static final Pattern GLYPH_PATTERN = Pattern.compile("<glyph:[^>]+>");
 
     private final Map<String, IconEntry> icons;
     private final Map<String, String> categoryPermissions;
@@ -43,7 +44,11 @@ public class IconDisplay implements ChatDisplay {
 
             String tagName = "icon_" + iconName;
             builder.resolver(Placeholder.component(tagName, adventureComponent.getComponent(entry.value())));
-            matcher.appendReplacement(result, "<" + tagName + ">");
+            String replacement = "<" + tagName + ">";
+            if (GLYPH_PATTERN.matcher(entry.value()).find()) {
+                replacement += "<font:default>";
+            }
+            matcher.appendReplacement(result, replacement);
         }
         matcher.appendTail(result);
         return result.toString();
